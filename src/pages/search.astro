@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DList from "../components/DList.astro";
+
+const query = Astro.url.searchParams.get("query");
+const valid = query?.match(/[a-zA-Z0-9\s]*/g);
+---
+
+<Layout
+  title="Welcome to Astro."
+  headerProps={{
+    query: query || "",
+  }}
+>
+  {
+    query && valid ? (
+      <div class="doujinContainer">
+        <DList query={query} />
+      </div>
+    ) : (
+      <>Invalid tho</>
+    )
+  }
+</Layout>

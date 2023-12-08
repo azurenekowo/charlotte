@@ -1,0 +1,32 @@
+---
+import icon from "../assets/Charlotte_Icon.png";
+
+export interface Props {
+  query?: string;
+}
+---
+
+<div class="header">
+  <div class="text">
+    <h3 onclick="window.location.href='/'" class="charlotte-heading">
+      <img class="sitecon" {...icon} />&nbsp;Charlotte
+    </h3>
+     An alternative frontend for HentaiVN, using <a
+      href="https://github.com/4pii4/piehtvn">piehtvn</a
+    > backend API.
+  </div>
+  <form class="input-group" id="searchboxDoujins" action="/search" method="get">
+    <div class="form-outline" data-mdb-input-init>
+      <input
+        type="search"
+        name="query"
+        class="form-control"
+        value={Astro.props.query}
+        placeholder="Title, keyword or ID..."
+      />
+    </div>
+    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+      Search!
+    </button>
+  </form>
+</div>

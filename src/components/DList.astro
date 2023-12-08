@@ -1,0 +1,41 @@
+---
+import { invoke } from "../api/search";
+
+export interface Props {
+  query: string;
+}
+
+const dat = await invoke(Astro.props.query);
+---
+
+{
+  dat.data?.map((doujinData, i) => (
+    // hitbox update
+    <>
+      <a class="doujin" href={`/doujin${doujinData.url}`}>
+        <img
+          class:list={[
+            "posterImage",
+            {
+              sanity: import.meta.env.DEV,
+            },
+          ]}
+          src={doujinData.cover}
+          alt=""
+        />
+        <span class="title">{doujinData.title}</span>
+      </a>
+    </>
+  ))
+}
+
+<style>
+  /* sanity mode, you knew it */
+  img.sanity {
+    filter: blur(8px);
+  }
+</style>
+
+<!-- <code>
+  {JSON.stringify(dat)}
+</code> -->
