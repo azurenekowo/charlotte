@@ -1,86 +1,12 @@
 ---
+import { invoke } from "../../../api/getmeta";
 import Layout from "../../../layouts/Layout.astro";
+import NotFound from "../../../components/404.astro";
+import DJMeta from "../../../components/DJMeta.astro";
+
+let { success, data } = await invoke(Astro.params.q);
 ---
 
 <Layout title="random doujin">
-  <div class="dj-info">
-    <div class="metainf">
-      <div class="title">
-        <h3 class="main">Phát triển XX bí mật - Thuốc nổ cặc</h3>
-        <h5 class="alt" style="color: #ccc; font-size: medium;">
-          Secret XX Development - 秘密的××开发
-        </h5>
-      </div>
-      <div class="seperator" style="width: 90%;"></div>
-      <div class="inf chars">
-        <span class="metainf-label">Characters</span><br />
-        <span class="tag">Aether</span>
-        <span class="tag">Raiden Shogun</span>
-        <span class="tag">Yae Miko</span>
-      </div>
-      <div class="inf categories">
-        <span class="metainf-label">Categories</span><br />
-        <div style="line-height: 2rem;">
-          <span class="tag">Based Game</span>
-          <span class="tag">Big Boobs</span>
-          <span class="tag">BreastJobs</span>
-          <span class="tag">Có che</span>
-          <span class="tag">Doujinshi</span><br />
-          <span class="tag">Footjob</span>
-          <span class="tag">Handjob</span>
-          <span class="tag">HentaiVN</span>
-          <span class="tag">Nakadashi</span>
-        </div>
-      </div>
-      <div class="inf translation">
-        <table>
-          <tr>
-            <th><span class="metainf-label">Translation</span><br /></th>
-            <th><span class="metainf-label">Author</span><br /></th>
-          </tr>
-          <tr>
-            <td
-              >Group: <b class="groupname">Bác Lệ Thần Xã</b>&nbsp; •
-              &nbsp;Uploader: <b class="uploader">navibu</b>&emsp;&emsp;</td
-            >
-            <td><b class="authorname">Maruco</b></td>
-          </tr>
-        </table>
-      </div>
-      <div class="inf status">
-        <table>
-          <tr>
-            <th><span class="metainf-label">Status</span><br /></th>
-            <th><span class="metainf-label">Last Updated</span><br /></th>
-          </tr>
-          <tr>
-            <td
-              ><i class="fa-solid fa-check" style="color: #26a269;"
-              ></i>&nbsp;Completed&emsp;&emsp;</td
-            >
-            <td>07/12/2023 13:00</td>
-          </tr>
-        </table>
-      </div>
-      <div class="inf desc">
-        <span class="metainf-label">Description</span><br />
-         Khổ thân thằng bé<br /><br />Theo dõi mình ở page phía dưới, ngoài ra
-        mình còn up những thứ thiểu năng khác<br />Nếu bạn có truyện muốn làm,
-        có thể liên hệ mình qua HVN, discord @navibu hoặc page FB phía dưới
-      </div>
-    </div>
-    <div class="posterdiv">
-      <img
-        class="poster"
-        src="https://t.htvncdn.net/images/190/1701928682-ba.jpg"
-      />
-      <br />
-      <div class="inf mockup">
-        <span class="metainf-label">Rating</span><br />
-        <i class="fa-solid fa-heart" style="color: #ed333b;"></i>&nbsp;71&nbsp;
-        • &nbsp;<i class="fa-solid fa-thumbs-down" style="color: #1c71d8;"
-        ></i>&nbsp;4
-      </div>
-    </div>
-  </div>
+  {success ? <DJMeta data={data} /> : <NotFound />}
 </Layout>

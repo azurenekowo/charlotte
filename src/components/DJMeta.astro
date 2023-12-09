@@ -1,0 +1,123 @@
+---
+import { type GET } from "../api/getmeta";
+
+interface Props {
+  data: GET;
+}
+
+const { data } = Astro.props;
+---
+
+<div class="dj-info">
+  <div class="metainf">
+    <div class="title">
+      <h3 class="main">{data.name}</h3>
+      <h5 class="alt" style="color: #ccc; font-size: medium;">
+        Secret XX Development - 秘密的××开发
+      </h5>
+    </div>
+    <div class="seperator" style="width: 90%;"></div>
+    <div class="inf tl chars">
+      <span class="metainf-label">Characters</span>
+      <div>
+        {data.characters.map((char) => <a class="tag">{char.text}</a>)}
+      </div>
+    </div>
+    <div class="inf tl categories">
+      <span class="metainf-label">Categories</span>
+      <div>
+        {data.tags.map((tag) => <a class="tag">{tag.name}</a>)}
+      </div>
+    </div>
+    <div class="inf translation">
+      <table>
+        <tr>
+          <th>
+            <>
+              <span class="metainf-label">Translation</span>
+              <br />
+            </>
+          </th>
+          <th>
+            <>
+              <span class="metainf-label">Author</span>
+              <br />
+            </>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Group: <b class="groupname">
+              {data.translators.map((t) => <a>{t.text}</a>)}
+            </b>&nbsp; • &nbsp;Uploader: <b class="uploader">{data.uploader}</b
+            >&emsp;&emsp;
+          </td>
+          <!-- <td>
+            {data.uploader}
+          </td> -->
+          <td>
+            <b class="authorname">Maruco</b>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="inf status">
+      <table>
+        <tr>
+          <th>
+            <>
+              <span class="metainf-label">Status</span>
+              <br />
+            </>
+          </th>
+          <th>
+            <>
+              <span class="metainf-label">Last Updated</span>
+              <br />
+            </>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <i class="fa-solid fa-check" style="color: #26a269;"></i>
+             &nbsp;Completed&emsp;&emsp;
+          </td>
+          <td>07/12/2023 13:00</td>
+        </tr>
+      </table>
+    </div>
+    <div class="inf desc">{data.description}</div>
+  </div>
+</div>
+
+<div class="posterdiv">
+  <img class="poster" src={data.cover} />
+  <br />
+  <div class="inf mockup">
+    <>
+      <span class="metainf-label">Rating</span>
+      <br />
+    </>
+    <i class="fa-solid fa-heart" style="color: #ed333b;"></i>
+     &nbsp;71&nbsp; • &nbsp;
+    <i class="fa-solid fa-thumbs-down" style="color: #1c71d8;"></i>
+     &nbsp;4
+  </div>
+</div>
+
+<style>
+  .dj-info {
+    display: flex;
+  }
+  .tl {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+  .tl > span {
+    margin-bottom: 5px;
+  }
+  .tag {
+    margin-right: 5px;
+  }
+</style>
