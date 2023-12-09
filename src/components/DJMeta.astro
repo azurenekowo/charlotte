@@ -20,13 +20,13 @@ const { data } = Astro.props;
     <div class="inf tl chars">
       <span class="metainf-label">Characters</span>
       <div>
-        {data.characters.map((char) => <a class="tag">{char.text}</a>)}
+        {data.characters?.map((char) => <a class="tag">{char.text}</a>)}
       </div>
     </div>
     <div class="inf tl categories">
       <span class="metainf-label">Categories</span>
       <div>
-        {data.tags.map((tag) => <a class="tag">{tag.name}</a>)}
+        {data.tags?.map((tag) => <a class="tag">{tag.name}</a>)}
       </div>
     </div>
     <div class="inf translation">
@@ -48,7 +48,7 @@ const { data } = Astro.props;
         <tr>
           <td>
             Group: <b class="groupname">
-              {data.translators.map((t) => <a>{t.text}</a>)}
+              {data.translators?.map((t) => <a>{t.text}</a>)}
             </b>&nbsp; • &nbsp;Uploader: <b class="uploader">{data.uploader}</b
             >&emsp;&emsp;
           </td>

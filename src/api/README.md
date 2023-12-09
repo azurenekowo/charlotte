@@ -12,3 +12,7 @@ So, in order to work in a static-typed environment, each module must:
 
 - Know what it needs (parameter, typewise if you want)
 - Know what it get (panic doesn't count, just the pure schema written in Typescript)
+
+## References
+
+- You should use [the schema generator](https://quicktype.io/typescript) to make data from origin being intelisense-compliant
