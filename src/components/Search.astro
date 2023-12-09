@@ -1,0 +1,42 @@
+---
+export interface Props {
+  query?: string;
+}
+---
+
+<form class="input-group" id="searchboxDoujins" action="/search" method="get">
+  <input
+    type="search"
+    name="query"
+    class="form-control"
+    value={Astro.props.query}
+    required
+    placeholder="Title, keyword or ID..."
+  />
+  <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+    Search!
+  </button>
+</form>
+
+<style>
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  form > * {
+    border: none;
+    --r: 6px;
+    padding: 0.8em 1.5em;
+  }
+  form > input {
+    margin-right: -2px;
+    border-radius: var(--r) 0 0 var(--r);
+  }
+  form > button {
+    color: #fff;
+    /* font-weight: semi-bold; */
+    background-color: #007bff;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+</style>

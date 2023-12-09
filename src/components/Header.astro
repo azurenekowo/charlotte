@@ -1,5 +1,6 @@
 ---
 import icon from "../assets/Charlotte_Icon.png";
+import Search from "./Search.astro";
 
 export interface Props {
   query?: string;
@@ -15,18 +16,11 @@ export interface Props {
       href="https://github.com/4pii4/piehtvn">piehtvn</a
     > backend API.
   </div>
-  <form class="input-group" id="searchboxDoujins" action="/search" method="get">
-    <div class="form-outline" data-mdb-input-init>
-      <input
-        type="search"
-        name="query"
-        class="form-control"
-        value={Astro.props.query}
-        placeholder="Title, keyword or ID..."
-      />
-    </div>
-    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
-      Search!
-    </button>
-  </form>
+  <Search query={Astro.props.query} />
 </div>
+
+<style>
+  .text {
+    padding-right: 10px;
+  }
+</style>
