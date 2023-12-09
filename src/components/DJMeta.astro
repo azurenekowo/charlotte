@@ -13,7 +13,7 @@ const { data } = Astro.props;
     <div class="title">
       <h3 class="main">{data.name}</h3>
       <h5 class="alt" style="color: #ccc; font-size: medium;">
-        Secret XX Development - 秘密的××开发
+        {data.other_names?.map((i) => <a>{i.text}</a>)}
       </h5>
     </div>
     <div class="seperator" style="width: 90%;"></div>
@@ -78,11 +78,20 @@ const { data } = Astro.props;
           </th>
         </tr>
         <tr>
-          <td>
+          <td class="st">
             <i class="fa-solid fa-check" style="color: #26a269;"></i>
-             &nbsp;Completed&emsp;&emsp;
+            <a>{data.status.text}</a>
           </td>
-          <td>07/12/2023 13:00</td>
+          <!-- vn style date -->
+          <!-- <td>07/12/2023 13:00</td> -->
+          <td>
+            {
+              new Date(data.last_updated * 1000).toLocaleString({
+                region: "vn",
+                // language: "vi",
+              })
+            }
+          </td>
         </tr>
       </table>
     </div>

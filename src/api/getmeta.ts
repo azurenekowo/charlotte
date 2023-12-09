@@ -13,6 +13,7 @@ interface Status {
 
 export type GET = {
 	name: string;
+  other_names: Status[]
 	characters?: Status[];
 	cover: string;
 	tags?: Tag[];
