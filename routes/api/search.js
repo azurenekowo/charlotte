@@ -12,7 +12,7 @@ router.post('/', async (request, response) => {
         response.setHeader('Content-Type', 'application/json').send({ success: true, data: Object.values(data)[0] })
     }
     catch (e) {
-        response.setHeader('Content-Type', 'application/json').send({ success: false })
+        response.setHeader('Content-Type', 'application/json').send({ success: false, data: JSON.stringify(e) })
     }
 })
 

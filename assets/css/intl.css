@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
  
-body {
-    font-family: 'Be Vietnam Pro', sans-serif !important;
+html {
+    position: relative;
+    min-height: 100%;
 }
 
+
+
 body {
+    font-family: 'Be Vietnam Pro', sans-serif;
     margin: 0 auto;
     max-width: 90%;
     padding-top: 3rem;
@@ -125,8 +129,7 @@ body {
 }
 
 .posterdiv .poster {
-    max-height: 400px;
-    max-width: 250px;
+    max-width: 350px;
     min-width: 250px;
     margin: 0 auto;
     border-radius: 8px;
@@ -146,14 +149,61 @@ body {
     width: 65%;
 }
 
+.taglist {
+    max-width: 100%;
+    word-wrap: normal;
+    line-height: 2rem;
+    display: block;
+} 
+
 .metainf div.inf .tag {
-    padding: 2px 4px;
+    padding: 3px 6px;
     background-color: #484848;
     color: white;
-    border-radius: 25px;
+    border-radius: 5px;
+    white-space: nowrap;
 }
 
-@media only screen and (max-width: 768px) {
+.metainf div.inf .tag:hover {
+    background-color: #323232;
+    transition: 0.3s;
+}
+
+a.noformat {
+    text-decoration: unset;
+    color: unset;
+}
+a.noformat:hover {
+    color:#ccc;
+    transition: 0.3s;
+}
+
+.metainf .desc p {
+    white-space: pre-line;
+}
+
+.displayRatings {
+    display: flex; 
+    justify-content: space-evenly; 
+    width: 80%;
+}
+
+.input-group button {
+    border-top-left-radius: 0% !important;
+    border-bottom-left-radius: 0% !important;
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0% !important;
+    border-bottom-right-radius: 0% !important;
+} 
+
+.mobileSPlaceholder { display: none }
+
+@media only screen and (max-width: 900px) {
+    .desktopSPlaceholder { display: none }
+    .mobileSPlaceholder { display: initial }
+
     .doujinContainer {
         display: flex;
         flex-direction: column;
@@ -196,6 +246,11 @@ body {
     }
 
     .metainf, .posterdiv {
-        width: 90%;
+        width: 100%;
+    }
+
+    .posterdiv .poster {
+        max-width: 350px;
+        min-width: 300px;
     }
 }
