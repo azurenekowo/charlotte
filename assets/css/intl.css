@@ -5,8 +5,6 @@ html {
     min-height: 100%;
 }
 
-
-
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
     margin: 0 auto;
@@ -129,14 +127,13 @@ body {
 }
 
 .posterdiv .poster {
-    max-width: 350px;
-    min-width: 250px;
+    width: 100%;
     margin: 0 auto;
     border-radius: 8px;
 }
 
 .posterdiv {
-    width: 30%;
+    width: 25%;
     margin-left: 5%;
 }
 
@@ -146,7 +143,7 @@ body {
 
 .metainf {
     gap: 20px;
-    width: 65%;
+    width: 70%;
 }
 
 .taglist {
@@ -185,7 +182,12 @@ a.noformat:hover {
 .displayRatings {
     display: flex; 
     justify-content: space-evenly; 
-    width: 80%;
+    width: 100%
+}
+
+.read button[class*="reader-"] {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input-group button {
@@ -199,6 +201,8 @@ a.noformat:hover {
 } 
 
 .mobileSPlaceholder { display: none }
+
+i[class^='fa-'] { color: #fff }
 
 @media only screen and (max-width: 900px) {
     .desktopSPlaceholder { display: none }
