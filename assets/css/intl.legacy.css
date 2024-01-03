@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
+ 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    margin: 0 auto;
+    max-width: 90%;
+    padding-top: 3rem;
+    border-radius: 6px;
+    background-color: #121212;
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.doujinContainer {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.doujin {
+    text-align: center;
+    float: left;
+    width: 20%;
+    padding: 10px;
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    height: 33.3%;
+}
+
+.doujin .title {
+    margin-top: 10px;
+    color: unset;
+    text-decoration: unset;
+}
+
+.doujin .posterImage {
+    max-width: 200px;
+    max-height: 400px;
+    min-width: 200px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.doujin .posterImage:hover {
+    filter: none;
+    transition: 0.3s;
+}
+
+.doujin:hover {
+    transition: 0.3s;
+}
+
+.doujin .title:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: #484848
+}
+
+.doujin .posterImage:hover {
+    transition: 0.3s;
+    box-shadow: 4px 8px #323232;
+    cursor: pointer
+}
+
+#searchboxDoujins {
+    width: fit-content;
+    height: fit-content
+}
+
+.sitecon {
+    width: 56px;
+    height: 56px;
+}
+
+.charlotte-heading:hover {
+    color: #484848;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.footer {
+    text-align: center;
+    border-top: 2px solid #484848;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.charlotte-hidden {
+    display: none;
+}
+
+#alertDialog {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.seperator {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 1.5px;
+    background-color: #ccc
+}
+
+.dj-info {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    height: auto;
+}
+
+.posterdiv .poster:hover {
+    transition: 0.3s;
+    box-shadow: 4px 8px #323232;
+    cursor: pointer
+}
+
+.posterdiv .poster {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.posterdiv {
+    width: 25%;
+    margin-left: 5%;
+}
+
+.metainf-label {
+    font-size: small;
+}
+
+.metainf {
+    gap: 20px;
+    width: 70%;
+}
+
+.taglist {
+    max-width: 100%;
+    word-wrap: normal;
+    line-height: 2rem;
+    display: block;
+} 
+
+.metainf div.inf .tag {
+    padding: 3px 6px;
+    background-color: #484848;
+    color: white;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.metainf div.inf .tag:hover {
+    background-color: #323232;
+    transition: 0.3s;
+}
+
+a.noformat {
+    text-decoration: unset;
+    color: unset;
+}
+
+a.noformat:hover {
+    color:#ccc;
+    transition: 0.3s;
+}
+
+.metainf .desc p {
+    white-space: pre-line;
+}
+
+.displayRatings {
+    display: flex; 
+    justify-content: space-evenly; 
+    width: 100%
+}
+
+.read button[class*="reader-"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-group button {
+    border-top-left-radius: 0% !important;
+    border-bottom-left-radius: 0% !important;
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0% !important;
+    border-bottom-right-radius: 0% !important;
+} 
+
+.mobileSPlaceholder { display: none }
+
+i[class^='fa-'] { color: #fff }
+
+@media only screen and (max-width: 900px) {
+    .desktopSPlaceholder { display: none }
+    .mobileSPlaceholder { display: initial }
+
+    .doujinContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .doujin {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: unset;
+    }
+
+    .doujin .title {
+        margin-left: 10px;
+        width: 100%;
+    }
+
+    .doujin .posterImage {
+        max-width: 120px;
+        min-width: 120px;
+        max-height: 300px;
+        margin-left: 10px;        
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #alertDialog {
+        width: 100% !important;
+        margin: unset;
+    }
+
+    .dj-info {
+        flex-direction: column;
+        width: 100%;
+        gap: 20px
+    }
+
+    .metainf, .posterdiv {
+        width: 100%;
+    }
+
+    .posterdiv .poster {
+        max-width: 350px;
+        min-width: 300px;
+    }
+}

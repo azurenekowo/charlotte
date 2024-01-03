@@ -16,13 +16,11 @@ window.addEventListener('load', async () => {
     }
     const doujinData = data.data
     const doujinLS = _.chunk(doujinData, 5)
-    console.log(doujinLS)
 
     const doujinContainer = document.querySelector('div.doujinListing')
     for (let i = 0; i < doujinLS.length; i++) {
         let htmlCode = `<div class="row text-center">`
         doujinLS[i].forEach(doujin => {
-            console.log(doujin)
             htmlCode += 
             `<div class="col doujin">
                 <div class="thumbnail">
@@ -34,7 +32,6 @@ window.addEventListener('load', async () => {
             </div>`
         })
         htmlCode += `</div>\n`
-        console.log(htmlCode)
         doujinContainer.innerHTML += htmlCode
     }
 })

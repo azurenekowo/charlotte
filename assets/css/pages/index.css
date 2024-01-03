@@ -3,7 +3,7 @@
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
     margin: 0 auto;
-    width: 90%
+    width: 90%;
 }
 
 .doujinListing {
@@ -31,6 +31,29 @@ body {
 
 .doujin .title {
     padding-top: 15px !important;
+}
+
+@media only screen and (max-width: 900px) {
+    .doujinListing {
+        margin: 0 auto;
+        max-width: 100%
+    }
+
+    .doujinListing .row {
+        gap: 30px
+    }
+
+    .doujin {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .doujin .thumbnail img {
+        object-fit: cover;
+        width: auto !important;
+        height: fit-content !important;
+        border-radius: 5px;
+    }
 }
 
 /* LEGACY CODE - FOR BACKWARD COMPABILITY PURPOSES */

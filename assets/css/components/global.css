@@ -14,3 +14,5 @@ a.noformat:hover {
     color: azure;
     transition: 0.3s;
 }
+
+i[class^='fa'] { color: #fff }
