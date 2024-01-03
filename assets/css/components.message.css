@@ -1,0 +1,12 @@
+#messageDialog {
+    margin: 0 auto;
+    width: 50%;
+}
+
+@media only screen and (max-width: 900px) {
+    #messageDialog {
+        width: 100%;
+    }
+}
+
+.charlotte-hidden { display: none; }

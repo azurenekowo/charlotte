@@ -1,0 +1,16 @@
+#searchbtn {
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+#searchbox {
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+} 
+
+.mobileSPlaceholder { display: none }
+
+@media only screen and (max-width: 900px) {
+    .desktopSPlaceholder { display: none }
+    .mobileSPlaceholder { display: initial }
+}

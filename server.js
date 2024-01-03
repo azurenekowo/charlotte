@@ -13,7 +13,7 @@ server.use('/public', express.static(path.join(__dirname, 'assets')))
 fs.readdirSync('routes').filter(f => f.endsWith('.js')).forEach(file => {
     const route = require(`./routes/${file}`)
     server.use(route.path, route)
-    console.log(chalk.hex('#7FFFD4')('[API] ') + 'Registered ' + chalk.grey(route.path))
+    console.log(chalk.hex('#ffe793')('[UI] ') + 'Registered ' + chalk.grey(route.path))
 })
 fs.readdirSync('routes/api').filter(f => f.endsWith('.js')).forEach(file => {
     const route = require(`./routes/api/${file}`)
@@ -22,5 +22,5 @@ fs.readdirSync('routes/api').filter(f => f.endsWith('.js')).forEach(file => {
 })
 
 server.listen(config.http.port, async () => {
-    console.log(chalk.greenBright('\n   ✔') + ' Listening ➜  ' + chalk.grey(`http://127.0.0.1${config.http.port == 80 ? '' : `:${config.http.port}`}`))
+    console.log(chalk.greenBright('\n    ✔') + ' Listening ➜  ' + chalk.grey(`http://127.0.0.1${config.http.port == 80 ? '' : `:${config.http.port}`}`))
 })

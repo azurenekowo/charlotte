@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    margin: 0 auto;
+    width: 90%
+}
+
+.doujinListing {
+    margin: 0 auto;
+    max-width: 80%
+}
+
+.doujinListing .row {
+    margin-top: 30px !important;
+}
+
+.doujin .thumbnail img {
+    object-fit: cover;
+    width: 100% !important;
+    height: 350px !important;
+    border-radius: 5px;
+}
+
+.doujin .thumbnail img:hover {
+    transition: 0.1s;
+    box-shadow: 8px 10px #323232;
+    cursor: pointer;
+    border: 2px solid #ccc
+}
+
+.doujin .title {
+    padding-top: 15px !important;
+}
+
+/* LEGACY CODE - FOR BACKWARD COMPABILITY PURPOSES */
+
+/*
+.doujinContainer {
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.doujin {
+    text-align: center;
+    float: left;
+    width: 20%;
+    padding: 10px;
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    height: 33.3%;
+}
+
+.doujin .title {
+    margin-top: 10px;
+    color: unset;
+    text-decoration: unset;
+}
+
+.doujin .posterImage {
+    max-width: 200px;
+    max-height: 400px;
+    min-width: 200px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.doujin .posterImage:hover {
+    filter: none;
+    transition: 0.3s;
+}
+
+.doujin:hover {
+    transition: 0.3s;
+}
+
+.doujin .title:hover {
+    cursor: pointer;
+    transition: 0.3s;
+    color: #484848
+}
+
+.doujin .posterImage:hover {
+    transition: 0.3s;
+    box-shadow: 4px 8px #323232;
+    cursor: pointer
+}*/

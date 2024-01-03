@@ -1,0 +1,16 @@
+.seperator {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 1.5px;
+    background-color: #ccc
+}
+
+a.noformat {
+    text-decoration: unset;
+    color: unset;
+}
+
+a.noformat:hover {
+    color: azure;
+    transition: 0.3s;
+}
