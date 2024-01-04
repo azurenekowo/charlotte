@@ -1,0 +1,49 @@
+.doujinListing {
+    margin: 0 auto;
+    max-width: 80%
+}
+
+.doujinListing .row {
+    margin-top: 30px !important;
+}
+
+.doujin .thumbnail img {
+    object-fit: cover;
+    width: 100% !important;
+    height: 350px !important;
+    border-radius: 5px;
+}
+
+.doujin .thumbnail img:hover {
+    transition: 0.1s;
+    box-shadow: 8px 10px #323232;
+    cursor: pointer;
+    border: 2px solid #ccc
+}
+
+.doujin .title {
+    padding-top: 15px !important;
+}
+
+@media only screen and (max-width: 900px) {
+    .doujinListing {
+        margin: 0 auto;
+        max-width: 100%
+    }
+
+    .doujinListing .row {
+        gap: 30px
+    }
+
+    .doujin {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .doujin .thumbnail img {
+        object-fit: cover;
+        width: auto !important;
+        height: fit-content !important;
+        border-radius: 5px;
+    }
+}

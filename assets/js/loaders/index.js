@@ -6,10 +6,10 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if (!data.success) {
-        const errorDialog = document.getElementById('messageDialog')
-        errorDialog.classList.add('alert-danger')
-        errorDialog.innerHTML = 'An error has occurred with the backend API.'
-        errorDialog.classList.remove('charlotte-hidden')
+        const dialog = document.getElementById('messageDialog')
+        dialog.classList.add('alert-danger')
+        dialog.innerHTML = 'An error has occurred with the backend API.'
+        dialog.classList.remove('charlotte-hidden')
         console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:')
         console.log(data.data)
         return
@@ -25,7 +25,7 @@ window.addEventListener('load', async () => {
             `<div class="col doujin">
                 <div class="thumbnail">
                     <a href="/doujin/${doujin.url}">
-                        <img src="${doujin.cover}" alt="Lights" style="width: 100%; height: fit-content">
+                        <img src="${doujin.cover}" alt="thumbnail" style="width: 100%; height: fit-content">
                     </a>
                 </div>
                 <h5 class="title"><a class="noformat" href="/doujin/${doujin.url}">${doujin.name}</a></h5>

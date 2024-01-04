@@ -6,10 +6,10 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if(!data.success) {
-        const errorDialog = document.getElementById('alertDialog')
-        errorDialog.classList.add('alert-danger')
-        errorDialog.innerHTML = 'An error has occurred with the backend API.'
-        errorDialog.classList.remove('charlotte-hidden')
+        const dialog = document.getElementById('alertDialog')
+        dialog.classList.add('alert-danger')
+        dialog.innerHTML = 'An error has occurred with the backend API.'
+        dialog.classList.remove('charlotte-hidden')
         console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
         console.log(`%c${data.data}`, 'color: #ff474c')
         return

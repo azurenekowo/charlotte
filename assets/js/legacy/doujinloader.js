@@ -12,7 +12,7 @@ function dateString(unixTS){
 
 window.addEventListener('load', async () => {
     const doujinIdentifier = window.location.pathname.replace('/doujin/', '')
-    const errorDialog = document.getElementById('alertDialog')
+    const dialog = document.getElementById('alertDialog')
     const res = await fetch(`/api/getDoujin?link=${doujinIdentifier}`, {
         headers: {
         },
@@ -20,15 +20,15 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if(!data.success) {
-        errorDialog.classList.remove('alert-secondary')
-        errorDialog.classList.add('alert-danger')
-        errorDialog.innerHTML = 'An error has occurred with the backend API.'
+        dialog.classList.remove('alert-secondary')
+        dialog.classList.add('alert-danger')
+        dialog.innerHTML = 'An error has occurred with the backend API.'
         console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
         console.log(`%c${data.data}`, 'color: #ff474c')
         return
     }
     const doujinData = data.data  
-    errorDialog.classList.add('charlotte-hidden')
+    dialog.classList.add('charlotte-hidden')
     
     document.querySelector('.metainf .title .main').innerHTML = doujinData.name
     document.querySelector('.metainf .title .alt').innerHTML = `${(doujinData.other_names ? doujinData.other_names.map(n => n.text).join(', ') : '')}`
