@@ -14,6 +14,9 @@ router.get('/', async (request, response) => {
                 machine: `${os.version} (${process.platform}) ${os.release()} ${process.arch}`,
                 user: `${os.userInfo().username}@${os.hostname()}`,
                 uptime: Math.round(os.uptime())
+            },
+            instance: {
+                id: null
             }
         }
     })

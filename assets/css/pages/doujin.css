@@ -1,0 +1,40 @@
+.doujin-info {
+    max-width: 70%; 
+    margin: 0 auto;
+}
+
+.thumbnail img {
+    width:  auto !important;    
+    height: 500px !important;
+    object-fit: cover;
+}
+
+.thumbnail img:hover {
+    transition: 0.1s;
+    box-shadow: 8px 10px #323232;
+    cursor: pointer;
+    border: 2px solid #ccc
+}
+
+.inf-group .name {
+    font-size: small;
+}
+
+span.tag {
+    font-size: small;
+}
+
+#display-desc {
+    white-space: pre-wrap
+}
+
+@media only screen and (max-width: 900px) {
+    .doujin-info {
+        max-width: 100% !important;
+    }
+
+    .thumbnail img {
+        width: 95% !important;
+        height: fit-content !important
+    }
+}

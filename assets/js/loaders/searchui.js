@@ -23,14 +23,14 @@ window.addEventListener('load', async () => {
         dialog.innerHTML = 'An error has occurred with the backend API.'
         dialog.classList.remove('charlotte-hidden')
         console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
-        console.log(`%c${data.data}`, 'color: #ff474c')
+        console.log(data.data)
         return
     }
     const dialog = document.getElementById('messageDialog')
     dialog.classList.add('alert-ifno')
     dialog.innerHTML = `Search results for <code>${sQuery}</code>`
 
-    document.title = `Charlotte - Search: ${sQuery}`
+    document.title = `Search: ${sQuery}`
 
     const doujinData = data.data
     const doujinLS = _.chunk(doujinData, 5)

@@ -25,6 +25,7 @@
     <script src="/public/js/components/searchbox.js"></script>
     <script src="/public/js/loaders/doujin.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/global.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/doujin.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/message.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/searchbox.css'>
@@ -55,16 +56,62 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">...</li>
+            <li class="breadcrumb-item active" aria-current="page">{{mainTitle}}</li>
         </ol>
     </nav>
     <div id="messageDialog" class="alert alert-dark text-center" role="alert">
         Loading, please wait for a moment...
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div class="card mb-3 doujin-info charlotte-hidden p-1">
+        <div class="row g-0">
+            <div class="col-md-4 thumbnail d-flex justify-content-center align-self-center">
+                <img src="/public/img/cover-example.png" class="img-fluid rounded display-coverart" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body metainf">
+                    <h3 class="card-title" id="title-main">{{mainTitle}}</h3>
+                    <p class="card-title text-muted" id="title-alt">{{altTitles}}</p>
+                    <hr class="hr hr-blurry">
+                    <div class="inf-group characters">
+                        <span class="name text-muted">Characters</span><br>
+                    </div>
+                    <div class="inf-group categories">
+                        <span class="name text-muted">Categories</span><br>
+                    </div>
+                    <div class="inf-group trans">
+                        <span class="name text-muted">Translation</span><br>
+                        <span id="display-transGroup">{{transGroup}}</span><br>
+                        <span id="display-uploader">{{uploader}}</span>
+                    </div>
+                    <div class="inf-group author">
+                        <span class="name text-muted">Author</span><br>
+                        <span id="display-author">{{author}}</span>
+                    </div>
+                    <div class="inf-group status">
+                        <span class="name text-muted">Status</span><br>
+                        <span id="display-status">{{status}}</span>
+                    </div>
+                    <div class="inf-group last-updated">
+                        <span class="name text-muted">Last Updated</span><br>
+                        <span id="display-LUStatus"><code>{{timestamp:LUTimestamp}}</code></span>
+                    </div>
+                    <div class="inf-group desc">
+                        <span class="name text-muted">Description</span><br>
+                        <p id="display-desc">{{desc}}
+                        </p>
+                    </div>
+                    <div class="inf-group readnow">
+                        <button type="button" class="btn btn-primary w-auto"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;Read</button>
+                    </div>
+                    <hr class="hr hr-blurry">
+                    <div class="inf-group ratings d-flex w-100 justify-content-evenly">
+                        <span><i class="fa-solid fa-heart fa-xl" style="color: #dc3545"></i>&nbsp;<number id="display-likes">{{likes}}</number></span>
+                        <span><i class="fa-solid fa-thumbs-down fa-xl" style="color: #0d6efd"></i>&nbsp;<number id="display-dislikes">{{dislikes}}</number>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

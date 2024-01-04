@@ -24,7 +24,7 @@ window.addEventListener('load', async () => {
         dialog.classList.add('alert-danger')
         dialog.innerHTML = 'An error has occurred with the backend API.'
         console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
-        console.log(`%c${data.data}`, 'color: #ff474c')
+        console.log(data.data)
         return
     }
     const doujinData = data.data  

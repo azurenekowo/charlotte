@@ -28,7 +28,7 @@
 @media only screen and (max-width: 900px) {
     .doujinListing {
         margin: 0 auto;
-        max-width: 100%
+        max-width: 100%;
     }
 
     .doujinListing .row {
@@ -42,8 +42,8 @@
 
     .doujin .thumbnail img {
         object-fit: cover;
-        width: auto !important;
-        height: fit-content !important;
+        width: 200px !important;
+        height: 300px !important;
         border-radius: 5px;
     }
 }
