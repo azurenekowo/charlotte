@@ -34,6 +34,7 @@ window.addEventListener('load', async () => {
     const doujinData = data.data  
     // Titles
     document.querySelector('#title-main').innerHTML = mainTitleHandler(doujinData.name)
+    document.querySelector('.bc-mainTitle').innerHTML = mainTitleHandler(doujinData.name)
     doujinData.other_names != null ? document.querySelector('#title-alt').innerHTML = doujinData.other_names.join(', ') : document.querySelector('#title-alt').classList.add('charlotte-hidden')
     // Cover art
     document.querySelector('img.display-coverart').src = doujinData.cover

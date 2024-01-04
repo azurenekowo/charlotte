@@ -13,7 +13,7 @@ server.use('/public', express.static(path.join(__dirname, 'assets')))
 fs.readdirSync('routes').filter(f => f.endsWith('.js')).forEach(file => {
     const route = require(`./routes/${file}`)
     server.use(route.path, route)
-    console.log(chalk.hex('#ffe793')('[UI] ') + 'Registered ' + chalk.grey(route.path))
+    console.log(chalk.hex('#ffe793')('[UI] ') + 'Render ' + chalk.grey(route.path))
 })
 fs.readdirSync('routes/api').filter(f => f.endsWith('.js')).forEach(file => {
     const route = require(`./routes/api/${file}`)
