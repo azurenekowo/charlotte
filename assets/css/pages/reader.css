@@ -1,0 +1,79 @@
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.doujin-reader {
+    height: 100%;
+    margin: 0 auto;
+    flex-direction: row;
+}
+
+.doujin-reader .controls {
+    width: 20% !important;
+}
+
+.doujin-reader .display-page {
+    width: 80% !important;
+
+}
+
+.display-page,
+.controls {
+    min-height: 100% !important;
+    max-height: 100% !important;
+}
+
+.display-page img {
+    width: auto;
+    height: 100%;
+}
+
+.showConfigs {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) {
+    .doujin-reader {
+        flex-direction: column-reverse;
+        height: unset !important;
+    }
+
+    .display-page {
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .controls {
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .showConfigs {
+        display: unset;
+    }
+
+    .doujin-reader .seperator {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .collapse.dont-collapse-sm {
+        display: block;
+        height: auto !important;
+        visibility: visible;
+    }
+}

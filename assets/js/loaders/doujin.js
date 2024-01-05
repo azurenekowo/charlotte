@@ -57,6 +57,10 @@ window.addEventListener('load', async () => {
     // Likes / Dislikes
     document.querySelector('#display-likes').innerHTML = `${doujinData.likes}`
     document.querySelector('#display-dislikes').innerHTML = `${doujinData.dislikes}`
+    // Read button
+    document.querySelector('.btn-readnow').addEventListener('click', () => {
+        window.location = `/read/${doujinIdentifier}`
+    })
 
 })
 

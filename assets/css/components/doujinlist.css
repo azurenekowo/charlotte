@@ -10,7 +10,7 @@
 .doujin .thumbnail img {
     object-fit: cover;
     width: 100% !important;
-    height: 350px !important;
+    height: fit-content !important;
     border-radius: 5px;
 }
 
