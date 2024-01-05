@@ -15,4 +15,7 @@ a.noformat:hover {
     transition: 0.3s;
 }
 
+.charlotte-hidden, .charlotte-internal { display: none; }
+
+
 i[class^='fa'] { color: #fff }

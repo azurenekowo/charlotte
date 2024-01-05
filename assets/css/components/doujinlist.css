@@ -10,7 +10,7 @@
 .doujin .thumbnail img {
     object-fit: cover;
     width: 100% !important;
-    height: fit-content !important;
+    height: 400px !important;
     border-radius: 5px;
 }
 
@@ -44,6 +44,16 @@
         object-fit: cover;
         width: 200px !important;
         height: 300px !important;
+        border-radius: 5px;
+    }
+}
+
+
+@media only screen and (min-width: 901px) and (max-width: 1440px) {
+    .doujin .thumbnail img {
+        object-fit: cover;
+        width: 100% !important;
+        height: 250px !important;
         border-radius: 5px;
     }
 }
