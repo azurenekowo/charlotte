@@ -80,7 +80,7 @@ function setInfoPlaceholders(doujinData) {
     document.querySelector('.categories').innerHTML += `${doujinData.tags.map(tag => `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${tag.link.replace('the-loai-', '/category/')}">${tag.name}</a></span>`).join('\n')}`
     if(doujinData.doujinshi) document.querySelector('.categories').innerHTML += `\n<span class="badge text-bg-info fw-normal tag">${doujinData.doujinshi}</span>`
     // Translation Info
-    document.querySelector('#display-transGroup').innerHTML = `Translator: <a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>`
+    document.querySelector('#display-transGroup').innerHTML = `Translator: ${doujinData.translators ? `<a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>` : `<i>None provided</i>`}`
     document.querySelector('#display-uploader').innerHTML = `Uploader: ${doujinData.uploader}`
     // Author
     document.querySelector('#display-author').innerHTML = `${doujinData.authors.join(', ')}`
@@ -88,7 +88,7 @@ function setInfoPlaceholders(doujinData) {
     document.querySelector('#display-status').innerHTML = `${doujinData.status == 'Đã hoàn thành' ? '<i class="fa-solid fa-check" style="color: #198754;"></i>&nbsp;Completed' : '<i class="fa-solid fa-spinner"></i></i>&nbsp;Work In Progress'}`
     document.querySelector('#display-LUStatus').innerHTML = `${dateString(doujinData.last_updated)}`
     // Description
-    document.querySelector('#display-desc').innerHTML = `${doujinData.desc}`
+    document.querySelector('#display-desc').innerHTML = `${doujinData.desc ? doujinData.desc : '<i>None provided.</i>'}`
     // Likes / Dislikes
     document.querySelector('#display-likes').innerHTML = `${doujinData.likes}`
     document.querySelector('#display-dislikes').innerHTML = `${doujinData.dislikes}`

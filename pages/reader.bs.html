@@ -90,7 +90,11 @@
                     </ul>
                 </div>
                 <hr class="hr hr-blurry">
-                <button class="btn btn-secondary btn-sm" id="pagefitToggle"><i class="fa-solid fa-arrows-left-right"></i> Page fit: Height</button><br>
+                <div class="autoscrollConfig input-group-sm d-flex flex-inline d-none">
+                    <button class="btn btn-sm btn-secondary toggle"><i class="fa-solid fa-bars-staggered"></i> Auto-scroll: Disabled</button>
+                    <input type="text" class="form-control ms-1 d-none" style="width: 20%; height: fit-content;">
+                </div>
+                <button class="btn btn-secondary btn-sm mt-1" id="pagefitToggle"><i class="fa-solid fa-arrows-left-right"></i> Page fit: Height</button><br>
                 <button class="btn btn-secondary btn-sm mt-1" id="progressToggle"><i class="fa-solid fa-percent"></i> Progress: Show</button>
                 <div class="dropdown mt-1 dropend ">
                     <button class="btn btn-sm btn-secondary dropdown-toggle pageSelect" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,7 +104,7 @@
                     </ul>
                 </div>
                 <br>
-                <div class="">
+                <div class="charlotte-internal">
                     <div class="form-floating">
                         <input type="text" class="form-control imageURL" id="imgURLInput" placeholder="Image link...">
                         <label for="floatingPassword">Image URL for <code>.display-page</code></label>
