@@ -49,7 +49,7 @@ window.addEventListener('load', async () => {
     // Author
     document.querySelector('#display-author').innerHTML = `${doujinData.authors.join(', ')}`
     // Status + LU
-    document.querySelector('#display-status').innerHTML = `${doujinData.status == 'Đã hoàn thành' ? '<i class="fa-solid fa-check" style="color: #198754;"></i>&nbsp;Completed' : '<i class="fa-solid fa-chart-line"></i>&nbsp;Work In Progress'}`
+    document.querySelector('#display-status').innerHTML = `${doujinData.status == 'Đã hoàn thành' ? '<i class="fa-solid fa-check" style="color: #198754;"></i>&nbsp;Completed' : '<i class="fa-solid fa-spinner"></i></i>&nbsp;Work In Progress'}`
     document.querySelector('#display-LUStatus').innerHTML = `${dateString(doujinData.last_updated)}`
     // Description
     console.log(doujinData.desc)
