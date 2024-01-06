@@ -4,7 +4,7 @@
 
 # <p align="center">Charlotte</p>   
 
-Other languages: [日本語](./README.ja-JP.md) | [汉语](./README.zh-CN.md) | [Tiếng Việt](./README.vi-VN.md)
+Other languages: [日本語](./README.ja_JP.md) | [Tiếng Việt](./README.vi_VN.md)
 
 ## About
 An alternative frontend for HentaiVN, using the [piehtvn](https://github.com/4pii4/piehtvn) API.
