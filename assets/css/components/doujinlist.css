@@ -7,6 +7,10 @@
     margin-top: 30px !important;
 }
 
+.col {
+    flex: unset !important
+}
+
 .doujin {
     width: 20% !important;
 }
@@ -37,6 +41,10 @@
 
     .doujinListing .row {
         gap: 30px
+    }
+
+    .col {
+        flex: 1 0 0 !important
     }
 
     .doujin {

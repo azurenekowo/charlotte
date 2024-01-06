@@ -39,7 +39,7 @@ window.addEventListener('load', async () => {
         let htmlCode = `<div class="row text-center">`
         doujinLS[i].forEach(doujin => {
             htmlCode +=
-                `<div class="doujin">
+                `<div class="col doujin">
                 <div class="thumbnail">
                     <a href="/doujin/${doujin.url}">
                         <img src="${doujin.cover}" alt="thumbnail" style="width: 100%; height: fit-content">
