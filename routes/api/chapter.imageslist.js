@@ -12,7 +12,6 @@ router.get('/', async (request, response) => {
         response.setHeader('Content-Type', `application/json`).send({ success: true, data: data })
     }
     catch (e) {
-        console.log(e.data)
         response.setHeader('Content-Type', 'application/json').send({ success: false, data: JSON.stringify(e) })
     }
 })

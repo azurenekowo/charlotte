@@ -12,7 +12,6 @@ function dateString(unixTS){
 
 window.addEventListener('load', async () => {
     const doujinIdentifier = window.location.pathname.replace('/doujin/', '')
-    console.log(doujinIdentifier)
     const dialog = document.getElementById('messageDialog')
     const res = await fetch(`/api/doujin/info?link=${doujinIdentifier}`, {
         headers: {
@@ -76,7 +75,7 @@ function setInfoPlaceholders(doujinData) {
     // Cover art
     document.querySelector('img.display-coverart').src = doujinData.cover
     // Characters Tag
-    document.querySelector('.characters').innerHTML += `${doujinData.characters.map(tag => `<span class="badge text-bg-secondary fw-normal tag">${tag}</span>`).join('\n')}`
+    document.querySelector('.characters').innerHTML += `${doujinData.characters ? doujinData.characters.map(tag => `<span class="badge text-bg-secondary fw-normal tag">${tag}</span>`).join('\n') : `<span class="badge text-bg-info fw-normal tag">None (Original Character)</span>`}`
     // Categories Tag
     document.querySelector('.categories').innerHTML += `${doujinData.tags.map(tag => `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${tag.link.replace('the-loai-', '/category/')}">${tag.name}</a></span>`).join('\n')}`
     if(doujinData.doujinshi) document.querySelector('.categories').innerHTML += `\n<span class="badge text-bg-info fw-normal tag">${doujinData.doujinshi}</span>`

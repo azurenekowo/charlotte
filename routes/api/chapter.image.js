@@ -16,7 +16,6 @@ router.post('/', async (request, response) => {
         response.setHeader('Content-Type', `image/${imageExt}`).send(image)
     }
     catch (e) {
-        console.log(e.data)
         response.setHeader('Content-Type', 'application/json').send({ success: false, data: JSON.stringify(e) })
     }
 })

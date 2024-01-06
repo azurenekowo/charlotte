@@ -9,8 +9,20 @@ window.addEventListener('load', async () => {
     const chapterQuery = window.location.pathname.replace('/read/', '')
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
    
-    const doujinData = (await (await fetch(`/api/doujin/info?link=${doujinIdentifier}`)).json()).data
-    const chapterData = (await (await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)).json()).data.reverse()
+    let doujinData, chapterData
+
+    try {    
+        doujinData = await fetch(`/api/doujin/info?link=${doujinIdentifier}`)
+        doujinData = await doujinData.json()
+        doujinData = doujinData.data
+        chapterData = await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
+        chapterData = await chapterData.json()
+        console.log(chapterData)
+        chapterData = chapterData.data.reverse()
+    }
+    catch(e) {
+        return showError(e)
+    }
 
     const doujinName = doujinData.name
     const currentChapter = chapterData.find(c => c.url == chapterQuery)
@@ -18,12 +30,7 @@ window.addEventListener('load', async () => {
     const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
     const data = await res.json()
     if(!data.success) {
-        const dialog = document.getElementById('messageDialog')
-        dialog.classList.add('alert-danger')
-        dialog.innerHTML = 'An error has occurred with the backend API.'
-        console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
-        console.log(data.data)
-        return
+        return showError(data.data)
     }
     imagesList = data.data
     pageCount = imagesList.length
@@ -63,6 +70,7 @@ async function setPage(pageNumber) {
     document.querySelector('.display-page img').src = urlCreator.createObjectURL(data)
 
     document.querySelector('.pageSelect').innerHTML = `<i class="fa-regular fa-file"></i> Page: ${currentPage}/${pageCount}`
+    document.querySelector('.pageSelectInput').innerHTML = `${currentPage}/${pageCount}`
     document.querySelectorAll('.page-select-list li button')
     const pageSelectorList = Array.from(document.querySelectorAll('.page-select-list li button'))
     pageSelectorList.forEach(item => item.classList.remove('active'))
@@ -100,4 +108,19 @@ function registerPageControlButtons() {
         if(currentPage == pageCount) return
         else return await setPage(currentPage + 1)
     })
+
+    document.querySelector('.pageControl .pageSelectInput').addEventListener('click', async () => {
+        const pageNum = prompt(`Enter a page number (1-${pageCount})...`)
+        if(!pageNum || isNaN(pageNum) || pageNum < 0 || pageNum > pageCount) return alert('Not a valid page number, please try again.')
+        await setPage(parseInt(pageNum))
+    })
+}
+
+function showError(e) {
+    const dialog = document.getElementById('messageDialog')
+    dialog.classList.remove('alert-dark')
+    dialog.classList.add('alert-danger')
+    dialog.innerHTML = 'An error has occurred with the backend API.'
+    console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
+    console.log(e)
 }
