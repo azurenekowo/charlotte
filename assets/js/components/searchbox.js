@@ -11,7 +11,10 @@ function searchDoujin() {
 }
 
 window.addEventListener('load', () => {
-    document.getElementById('searchbox').addEventListener('keyup', (e) => {
-        if(e.key == 'Enter') document.getElementById('searchbtn').click()
-    })
+    document.getElementById('searchbox').onkeydown = (e) => {
+        if(e.key == 'Enter') {
+            e.preventDefault()
+            searchDoujin()
+        }
+    }
 })

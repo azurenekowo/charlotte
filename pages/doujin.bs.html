@@ -100,8 +100,16 @@
                         <p id="display-desc">{{desc}}
                         </p>
                     </div>
-                    <div class="inf-group readnow">
-                        <button type="button" class="btn btn-primary w-auto btn-readnow"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;Read</button>
+                    <div class="inf-group readnow d-flex flex-inline">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle chapter-display" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chapter: Loading...
+                            </button>
+                            <ul class="dropdown-menu chaptersList">
+                                
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary w-auto btn-readnow ms-1"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;Read</button>
                     </div>
                     <hr class="hr hr-blurry">
                     <div class="inf-group ratings d-flex w-100 justify-content-evenly">

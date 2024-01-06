@@ -22,4 +22,4 @@ router.post('/', async (request, response) => {
 })
 
 module.exports = router
-module.exports.path = '/api/chapter/image'
+module.exports.path = '/api/chapter/getImage'

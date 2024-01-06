@@ -62,6 +62,10 @@
             <div class="progress mt-1 read-progress" style="height: 5px;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-bar bar" style="width: 0%"></div>
             </div>  
+            <div class="pageControl mt-2 align-self-center d-flex justify-content-evenly">
+                <button class="btn btn-secondary prev"><i class="fa-solid fa-arrow-left"></i> Prev.</button>
+                <button class="btn btn-secondary next">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
         </div>
         <div class="vr seperator" style="height: auto"></div>
         <div class="controls p-3">
@@ -75,18 +79,13 @@
             </div>
             <hr class="hr hr-blurry">
             <div class="settings collapse dont-collapse-sm" id="settingsUI">
-                <h5 class="card-title"><i class="fa-solid fa-book-bookmark"></i>&nbsp;Airen Tenmen ~Pink no Yousei-san ga Anata dake ni Miseru Yoru no Kao~ (Honkai Impact 3rd)</h5>
-                <span class="text-body-secondary" style="font-size: small;">Oneshot</span>
+                <h5 class="card-title title-display"><i class="fa-solid fa-book-bookmark"></i>&nbsp;<a class="noformat">{{title}}</a></h5>
+                <span class="text-body-secondary chapter-display" style="font-size: small;">{{chapter}}</span>
                 <br>
                 <br>
                 <div class="dropdown">
                     <button class="btn btn-sm btn-secondary dropdown-toggle d-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select chapter</button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item">Chapter 1</a></li>
-                        <li><a class="dropdown-item">Chapter 2</a></li>
-                        <li><a class="dropdown-item">Chapter 3</a></li>
-                        <li><a class="dropdown-item">Chapter 4</a></li>
-                        <li><a class="dropdown-item">Chapter 5</a></li>
                     </ul>
                 </div>
                 <hr class="hr hr-blurry">

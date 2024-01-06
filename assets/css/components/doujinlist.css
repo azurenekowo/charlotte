@@ -7,6 +7,10 @@
     margin-top: 30px !important;
 }
 
+.doujin {
+    width: 20% !important;
+}
+
 .doujin .thumbnail img {
     object-fit: cover;
     width: 100% !important;
@@ -38,6 +42,7 @@
     .doujin {
         display: flex;
         flex-direction: column !important;
+        width: unset !important;
     }
 
     .doujin .thumbnail img {

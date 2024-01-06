@@ -7,7 +7,14 @@ let imagesList = []
 
 window.addEventListener('load', async () => {
     const chapterQuery = window.location.pathname.replace('/read/', '')
+    const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
    
+    const doujinData = (await (await fetch(`/api/doujin/info?link=${doujinIdentifier}`)).json()).data
+    const chapterData = (await (await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)).json()).data.reverse()
+
+    const doujinName = doujinData.name
+    const currentChapter = chapterData.find(c => c.url == chapterQuery)
+
     const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
     const data = await res.json()
     if(!data.success) {
@@ -27,19 +34,25 @@ window.addEventListener('load', async () => {
         document.querySelector('ul.page-select-list').appendChild(pageListItem)
     }
 
+    document.querySelector('.title-display a').href = `/doujin/${doujinIdentifier}`
+    document.querySelector('.title-display a').innerHTML = `${doujinName}`
+    document.querySelector('.chapter-display').innerHTML = `Chapter ${chapterData.indexOf(currentChapter) + 1}: ${currentChapter.title}`
+
     document.querySelector('.navbar').classList.add('charlotte-hidden')
     document.querySelector('#messageDialog').classList.add('charlotte-hidden')
 
     document.querySelector('.doujin-reader').classList.remove('d-none')
+    window.history.replaceState(null, '', window.location.pathname)
     await setPage(1)
     registerKeyNav()
+    registerPageControlButtons()
 })
 
 async function setPage(pageNumber) {
     currentPage = pageNumber
     percentage = (currentPage / pageCount) * 100
 
-    const response = await fetch('/api/chapter/image', {
+    const response = await fetch('/api/chapter/getImage', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -56,6 +69,13 @@ async function setPage(pageNumber) {
     pageSelectorList[currentPage - 1].classList.add('active')
     document.querySelector('.read-progress').setAttribute('aria-valuenow', percentage)
     document.querySelector('.read-progress .bar').style.width = `${percentage}%`
+
+    if(currentPage == 1) document.querySelector('.pageControl .prev').setAttribute('disabled', '')
+    else if(currentPage == pageCount) document.querySelector('.pageControl .next').setAttribute('disabled', '')
+    else {
+        document.querySelector('.pageControl .prev').removeAttribute('disabled')
+        document.querySelector('.pageControl .next').removeAttribute('disabled')
+    }
 }
 
 function registerKeyNav() {
@@ -71,3 +91,13 @@ function registerKeyNav() {
     })
 }
 
+function registerPageControlButtons() {
+    document.querySelector('.pageControl .prev').addEventListener('click', async () => {
+        if(currentPage == 1) return
+        else return await setPage(currentPage - 1)
+    })
+    document.querySelector('.pageControl .next').addEventListener('click', async () => {
+        if(currentPage == pageCount) return
+        else return await setPage(currentPage + 1)
+    })
+}
