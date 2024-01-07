@@ -1,3 +1,9 @@
+> Marking of the first gen remastered version deprecation
+>
+> I have no means to replement this as the HEAD move 24 commit foward. Too much things happen
+>
+> Yea, new yea, new impl. Let just make anything in Rust :confetti:
+
 # Astro Starter Kit: Basics
 
 ```sh
