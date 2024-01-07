@@ -45,7 +45,7 @@ body {
 }
 
 .display-page .pageControl {
-    display: none !important;
+    visibility: hidden !important;
 }
 
 @media only screen and (max-width: 900px) {
@@ -73,7 +73,7 @@ body {
     }
 
     .display-page .pageControl {
-        display: unset;
+        visibility: visible !important;
     }
 }
 

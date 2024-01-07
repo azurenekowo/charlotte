@@ -9,6 +9,8 @@ let autoScrollInterval = 5
 let autoScrollDaemon = null
 
 window.addEventListener('load', async () => {
+    document.body.classList.add('p-3')
+
     const chapterQuery = window.location.pathname.replace('/read/', '')
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
    
@@ -23,7 +25,7 @@ window.addEventListener('load', async () => {
         chapterData = chapterData.data.reverse()
     }
     catch(e) {
-        return showError(e, 'with the backend API')
+        return showError(e, '. Please try opening from the doujin page, not via a direct link ')
     }
 
     const doujinName = doujinData.name
@@ -32,7 +34,7 @@ window.addEventListener('load', async () => {
     const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
     const data = await res.json()
     if(!data.success) {
-        return showError(data.data, 'while loading the chapter\'s images')
+        return showError(data.data, ' while loading the chapter\'s images')
     }
     imagesList = data.data
     pageCount = imagesList.length
@@ -50,6 +52,7 @@ window.addEventListener('load', async () => {
     document.querySelector('.navbar').classList.add('charlotte-hidden')
     document.querySelector('#messageDialog').classList.add('charlotte-hidden')
 
+    document.body.classList.remove('p-3')
     document.querySelector('.doujin-reader').classList.remove('d-none')
     document.title = `Reading: ${doujinName}`
     modifyMetatags(doujinData, doujinIdentifier)
@@ -178,7 +181,7 @@ function showError(e, reason) {
     const dialog = document.getElementById('messageDialog')
     dialog.classList.remove('alert-dark')
     dialog.classList.add('alert-danger')
-    dialog.innerHTML = `An error has occurred ${reason}.`
+    dialog.innerHTML = `An error has occurred${reason}.`
     console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
     console.log(e)
 }
