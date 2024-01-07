@@ -4,7 +4,7 @@
 
 # <p align="center">Charlotte</p>   
 
-Ngôn ngữ khác: [日本語](./README.ja-JP.md) | [汉语](./README.zh-CN.md) | [Tiếng Anh](./README.md)
+Ngôn ngữ khác: [日本語](./README.ja-JP.md) | [Tiếng Anh](./README.md)
 
 ## Giới thiệu
 Một giao diện khác cho HentaiVN, sử dụng back end [piehtvn](https://github.com/4pii4/piehtvn) (không chính thức).

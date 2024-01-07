@@ -28,6 +28,11 @@ span.tag {
     white-space: pre-wrap
 }
 
+.ratings {
+    margin: 0 auto;
+    width: 80%;
+}
+
 @media only screen and (max-width: 900px) {
     .doujin-info {
         max-width: 100% !important;
@@ -36,5 +41,9 @@ span.tag {
     .thumbnail img {
         width: 95% !important;
         height: fit-content !important
+    }
+
+    .ratings {
+        width: 100%;
     }
 }

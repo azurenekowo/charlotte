@@ -1,15 +1,3 @@
-function dateString(unixTS){
-    const a = new Date(unixTS * 1000)
-    const year = a.getFullYear()
-    const month = a.getMonth()
-    const date = a.getDate()
-    const hour = a.getHours()
-    const min = a.getMinutes()
-    const sec = a.getSeconds()
-    const time = `${date}/${month}/${year} ${hour}:${min}`
-    return time
-}
-
 window.addEventListener('load', async () => {
     const doujinIdentifier = window.location.pathname.replace('/doujin/', '')
     const dialog = document.getElementById('messageDialog')
@@ -32,6 +20,7 @@ window.addEventListener('load', async () => {
 
     const doujinData = data.data  
     setInfoPlaceholders(doujinData)
+    modifyMetatags(doujinData, doujinIdentifier)
 
     await getChapters(doujinIdentifier, doujinIdentifier)
 })
@@ -80,7 +69,11 @@ function setInfoPlaceholders(doujinData) {
     document.querySelector('.categories').innerHTML += `${doujinData.tags.map(tag => `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${tag.link.replace('the-loai-', '/category/')}">${tag.name}</a></span>`).join('\n')}`
     if(doujinData.doujinshi) document.querySelector('.categories').innerHTML += `\n<span class="badge text-bg-info fw-normal tag">${doujinData.doujinshi}</span>`
     // Translation Info
-    document.querySelector('#display-transGroup').innerHTML = `Translator: ${doujinData.translators ? `<a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>` : `<i>None provided</i>`}`
+    if(doujinData.translators) document.querySelector('#display-transGroup').innerHTML = `Translator: <a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>`
+    else {
+        document.querySelector('#display-transGroup').classList.add('d-none')
+        document.querySelector('#seperatorTranslatorInf').classList.add('d-none')
+    } 
     document.querySelector('#display-uploader').innerHTML = `Uploader: ${doujinData.uploader}`
     // Author
     document.querySelector('#display-author').innerHTML = `${doujinData.authors.join(', ')}`
@@ -92,6 +85,21 @@ function setInfoPlaceholders(doujinData) {
     // Likes / Dislikes
     document.querySelector('#display-likes').innerHTML = `${doujinData.likes}`
     document.querySelector('#display-dislikes').innerHTML = `${doujinData.dislikes}`
+    document.title = mainTitleHandler(doujinData.name)
+}
+
+function modifyMetatags(doujinData, doujinIdentifier) {
+    document.querySelector('title').innerHTML = doujinData.name
+    document.querySelector('meta[name="title"]').setAttribute('content', doujinData.name)
+    document.querySelector('meta[name="description"]').setAttribute('content', (doujinData.desc ? doujinData.desc.replace(/\\r/g, '\n') : ' '))
+
+    document.querySelector('meta[property="og:title"]').setAttribute('content', doujinData.name)
+    document.querySelector('meta[property="og:description"]').setAttribute('content', (doujinData.desc ? doujinData.desc.replace(/\\r/g, '\n') : ' '))
+    document.querySelector('meta[property="og:image"]').setAttribute('content', doujinData.cover)
+
+    document.querySelector('meta[property="twitter:title"]').setAttribute('content', doujinData.name)
+    document.querySelector('meta[property="twitter:description"]').setAttribute('content', (doujinData.desc ? doujinData.desc.replace(/\\r/g, '\n') : ' '))
+    document.querySelector('meta[property="twitter:image"]').setAttribute('content', doujinData.cover)
 }
 
 function mainTitleHandler(string) {

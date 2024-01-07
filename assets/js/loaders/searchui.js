@@ -1,7 +1,8 @@
 window.addEventListener('load', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const sQuery = urlParams.get('q')
-
+    modifyMetatags(q)
+    
     if (!sQuery) {
         const dialog = document.getElementById('messageDialog')
         dialog.classList.remove('alert-dark')
@@ -53,3 +54,10 @@ window.addEventListener('load', async () => {
     }
 
 })
+
+function modifyMetatags(q) {
+    document.querySelector('title').innerHTML = `Charlotte - Search: ${q}`
+    document.querySelector('meta[name="title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+    document.querySelector('meta[property="og:title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+    document.querySelector('meta[property="twitter:title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+}

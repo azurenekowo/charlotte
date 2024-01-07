@@ -50,11 +50,26 @@ window.addEventListener('load', async () => {
 
     document.querySelector('.doujin-reader').classList.remove('d-none')
     document.title = `Reading: ${doujinName}`
+    modifyMetatags(doujinData, doujinIdentifier)
     window.history.replaceState(null, '', window.location.pathname)
     await setPage(1)
     registerKeyNav()
     registerPageControlButtons()
 })
+
+function modifyMetatags(doujinData, doujinIdentifier) {
+    document.querySelector('title').innerHTML = `Reading: ${doujinData.name}`
+    document.querySelector('meta[name="title"]').setAttribute('content', `Reading: ${doujinData.name}`)
+    document.querySelector('meta[name="description"]').setAttribute('content', (doujinData.desc ? doujinData.desc.replace(/\\r/g, '\n') : ' '))
+
+    document.querySelector('meta[property="og:title"]').setAttribute('content', `Reading: ${doujinData.name}`)
+    document.querySelector('meta[property="og:description"]').setAttribute('content', (doujinData.desc ? doujinData.desc.replace(/\\r/g, '\n') : ' '))
+    document.querySelector('meta[property="og:image"]').setAttribute('content', doujinData.cover)
+
+    document.querySelector('meta[property="twitter:title"]').setAttribute('content', `Reading: ${doujinData.name}`)
+    document.querySelector('meta[property="twitter:description"]').setAttribute('content', (doujinData.desc ? doujinData.desc.replace(/\\r/g, '\n') : ' '))
+    document.querySelector('meta[property="twitter:image"]').setAttribute('content', doujinData.cover)
+}
 
 async function setPage(pageNumber) {
     currentPage = pageNumber

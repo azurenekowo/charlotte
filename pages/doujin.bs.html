@@ -5,8 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Charlotte</title>
-
+    <title>Doujin: </title>
+    <meta name="theme-color" content="#975cf6">
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="">
+    <meta property="twitter:description" content="">
+    <meta property="twitter:image" content="">
+    
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel="icon" type="image/png" href="/public/img/Charlotte_Icon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -41,7 +51,7 @@
             </a>
             <form class="d-flex" role="search">
                 <div class="form-outline" data-mdb-input-init>
-                    <input type="search" id="searchbox" class="form-control" placeholder="Title, keyword or ID..." />
+                    <input type="search" id="searchbox" class="form-control" placeholder="Title, keyword or ID...">
                 </div>
                 <button type="button" id="searchbtn" class="btn btn-primary" data-mdb-ripple-init
                     onclick="searchDoujin()">
@@ -80,7 +90,7 @@
                     </div>
                     <div class="inf-group trans">
                         <span class="name text-muted">Translation</span><br>
-                        <span id="display-transGroup">{{transGroup}}</span><br>
+                        <span id="display-transGroup">{{transGroup}}</span><br id="seperatorTranslatorInf">
                         <span id="display-uploader">{{uploader}}</span>
                     </div>
                     <div class="inf-group author">
@@ -110,11 +120,12 @@
                             </ul>
                         </div>
                         <button type="button" class="btn btn-sm btn-primary w-auto btn-readnow mt-1"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;Read</button>
+                        <button type="button" class="btn btn-sm btn-primary w-auto btn-readnow mt-1"><i class="fa-solid fa-bookmark"></i></i>&nbsp;Save</button>
                     </div>
                     <hr class="hr hr-blurry">
-                    <div class="inf-group ratings d-flex w-100 justify-content-evenly">
+                    <div class="inf-group ratings d-flex align-self-center justify-content-evenly">
                         <span><i class="fa-solid fa-heart fa-xl" style="color: #dc3545"></i>&nbsp;<number id="display-likes">{{likes}}</number></span>
-                        <span><i class="fa-solid fa-thumbs-down fa-xl" style="color: #0d6efd"></i>&nbsp;<number id="display-dislikes">{{dislikes}}</number>
+                        <span><i class="fa-solid fa-thumbs-down fa-xl" style="color: #0d6efd"></i>&nbsp;<number id="display-dislikes">{{dislikes}}</number></span>
                     </div>
                 </div>
             </div>
