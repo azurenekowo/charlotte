@@ -45,7 +45,7 @@ body {
 }
 
 .display-page .pageControl {
-    display: none;
+    display: none !important;
 }
 
 @media only screen and (max-width: 900px) {

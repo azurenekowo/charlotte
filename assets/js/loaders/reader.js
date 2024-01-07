@@ -4,6 +4,9 @@ let currentPage = 0
 let pageCount = 0
 let percentage = (currentPage / pageCount) * 100
 let imagesList = []
+let autoScrollEnabled = false
+let autoScrollInterval = 5
+let autoScrollDaemon = null
 
 window.addEventListener('load', async () => {
     const chapterQuery = window.location.pathname.replace('/read/', '')
@@ -17,11 +20,10 @@ window.addEventListener('load', async () => {
         doujinData = doujinData.data
         chapterData = await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
         chapterData = await chapterData.json()
-        console.log(chapterData)
         chapterData = chapterData.data.reverse()
     }
     catch(e) {
-        return showError(e)
+        return showError(e, 'with the backend API')
     }
 
     const doujinName = doujinData.name
@@ -30,7 +32,7 @@ window.addEventListener('load', async () => {
     const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
     const data = await res.json()
     if(!data.success) {
-        return showError(data.data)
+        return showError(data.data, 'while loading the chapter\'s images')
     }
     imagesList = data.data
     pageCount = imagesList.length
@@ -55,6 +57,7 @@ window.addEventListener('load', async () => {
     await setPage(1)
     registerKeyNav()
     registerPageControlButtons()
+    configureAutoscroll()
 })
 
 function modifyMetatags(doujinData, doujinIdentifier) {
@@ -132,11 +135,50 @@ function registerPageControlButtons() {
     })
 }
 
-function showError(e) {
+function configureAutoscroll() {
+    document.querySelector('.toggleAutoscroll').addEventListener('click', () => {
+        autoScrollEnabled = !autoScrollEnabled
+        if(autoScrollEnabled == true) {
+            document.querySelector('.toggleAutoscroll').innerHTML = '<i class="fa-solid fa-bars-staggered"></i> Autoscroll: Enabled'
+            document.querySelector('.asInterval-input').classList.remove('d-none')
+            autoScrollInterval = document.querySelector('.asInterval-input').value
+            // Note: The delay modification exists due to the image loading lag.
+            // For now, it loops faster than the user's value for 2 seconds.
+            if(autoScrollInterval > 3) autoScrollInterval = autoScrollInterval - 2
+
+            autoScrollDaemon = setInterval(async () => {
+                console.log('autoscroll daemon interval fired')
+                if(currentPage == pageCount) return disableAutoscroll()
+                await setPage(currentPage + 1)
+            }, autoScrollInterval * 1000)
+        }
+        else {
+            return disableAutoscroll()
+        }
+    })
+    document.querySelector('.asInterval-input').addEventListener('input', () => {
+        if(document.querySelector('.asInterval-input').value == null) return
+        autoScrollInterval = document.querySelector('.asInterval-input').value
+        console.log('autoscroll interval changed to ' + document.querySelector('.asInterval-input').value)
+    })
+}
+
+function disableAutoscroll() {
+    document.querySelector('.toggleAutoscroll').innerHTML = '<i class="fa-solid fa-bars-staggered"></i> Autoscroll: Disabled'
+    document.querySelector('.asInterval-input').classList.add('d-none')
+     
+    if(autoScrollDaemon != null) {
+        clearInterval(autoScrollDaemon)
+        autoScrollDaemon = null
+    }
+    return
+}
+
+function showError(e, reason) {
     const dialog = document.getElementById('messageDialog')
     dialog.classList.remove('alert-dark')
     dialog.classList.add('alert-danger')
-    dialog.innerHTML = 'An error has occurred with the backend API.'
+    dialog.innerHTML = `An error has occurred ${reason}.`
     console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
     console.log(e)
 }
