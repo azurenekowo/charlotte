@@ -1,7 +1,7 @@
 window.addEventListener('load', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const sQuery = urlParams.get('q')
-    modifyMetatags(q)
+    modifyMetatags(sQuery)
     
     if (!sQuery) {
         const dialog = document.getElementById('messageDialog')
