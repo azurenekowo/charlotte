@@ -4,15 +4,14 @@
 
 # <p align="center">Charlotte</p>   
 
-Other languages: [日本語](./README.ja-JP.md) | [汉语](./README.zh-CN.md) | [Tiếng Việt](./README.vi-VN.md)
+Ngôn ngữ khác: [日本語](./README.ja-JP.md) | [汉语](./README.zh-CN.md) | [Tiếng Anh](./README.md)
 
 ## Giới thiệu
-Một alternative frontend cho HentaiVN, sử dụng API không chính thức (scraper) [piehtvn](https://github.com/4pii4/piehtvn).
+Một giao diện khác cho HentaiVN, sử dụng back end [piehtvn](https://github.com/4pii4/piehtvn) (không chính thức).
 
-## Tính năng
+## Ưu điểm
 - Dễ sử dụng, web responsive trên mọi thiết bị
-- Thiết kế đơn giản, đã lược bỏ quảng cáo / những thứ gây phân tâm
-- Tính ổn định cao
+- Thiết kế đơn giản, không quảng cáo
 
 ## Cài đặt
 **Lưu ý**: Bạn cần phải có một instance piehtvn chạy sẵn.
@@ -23,9 +22,9 @@ npm i
 node server.js
 ```
 
-## Cấu hình
-- `http.port` - Charlotte sẽ bind http port trên cổng này
-- `backend.host` - IP instance piehtvn
+## Config
+- `http.port` - Cổng của front end
+- `backend.host` - IP của back end
 
 ## Routes
 - `/status`
