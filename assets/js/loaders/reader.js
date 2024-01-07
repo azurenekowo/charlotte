@@ -49,6 +49,7 @@ window.addEventListener('load', async () => {
     document.querySelector('#messageDialog').classList.add('charlotte-hidden')
 
     document.querySelector('.doujin-reader').classList.remove('d-none')
+    document.title = `Reading: ${doujinName}`
     window.history.replaceState(null, '', window.location.pathname)
     await setPage(1)
     registerKeyNav()
