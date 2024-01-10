@@ -9,8 +9,6 @@ let autoScrollInterval = 5
 let autoScrollDaemon = null
 
 window.addEventListener('load', async () => {
-    document.body.classList.add('p-3')
-
     const chapterQuery = window.location.pathname.replace('/read/', '')
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
    
@@ -20,14 +18,16 @@ window.addEventListener('load', async () => {
         doujinData = await fetch(`/api/doujin/info?link=${doujinIdentifier}`)
         doujinData = await doujinData.json()
         doujinData = doujinData.data
+	console.log(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
         chapterData = await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
         chapterData = await chapterData.json()
         chapterData = chapterData.data.reverse()
     }
     catch(e) {
-        return showError(e, '. Please try opening from the doujin page, not via a direct link ')
+        return showError(e, '. Please try again from the doujin page, not via a direct link')
     }
 
+    console.log(chapterData)
     const doujinName = doujinData.name
     const currentChapter = chapterData.find(c => c.url == chapterQuery)
 
@@ -44,11 +44,10 @@ window.addEventListener('load', async () => {
         pageListItem.addEventListener('click', async () => { await setPage(i) })
         document.querySelector('ul.page-select-list').appendChild(pageListItem)
     }
-
     document.querySelector('.title-display a').href = `/doujin/${doujinIdentifier}`
     document.querySelector('.title-display a').innerHTML = `${doujinName}`
     document.querySelector('.chapter-display').innerHTML = `Chapter ${chapterData.indexOf(currentChapter) + 1}: ${currentChapter.title}`
-
+    
     document.querySelector('.navbar').classList.add('charlotte-hidden')
     document.querySelector('#messageDialog').classList.add('charlotte-hidden')
 
@@ -59,6 +58,7 @@ window.addEventListener('load', async () => {
     window.history.replaceState(null, '', window.location.pathname)
     await setPage(1)
     registerKeyNav()
+    registerTouchEvt()
     registerPageControlButtons()
     configureAutoscroll()
 })
@@ -121,6 +121,25 @@ function registerKeyNav() {
     })
 }
 
+function registerTouchEvt() {
+    const displayImagePage = document.querySelector('.display-page .image img')
+    // console.log(displayImagePage)
+    const touchHandler = new Hammer(displayImagePage)
+    touchHandler.on('tap', (e) => {
+        // alert(JSON.stringify(e, null, 4))
+        const deltaX = e.center.x
+        const deltaPerc = Math.round((deltaX / displayImagePage.width) * 100)
+        if(deltaPerc > 50) {
+            setPage(currentPage + 1)
+            // alert(`Tap evt fired - Scroll RIGHT\nX ${deltaX} (${deltaPerc}% imageWidth)`)
+        }
+        else if(deltaPerc < 50) {
+            setPage(currentPage - 1)
+            // alert(`Tap evt fired - Scroll LEFT\nX ${deltaX} (${deltaPerc}% imageWidth)`)
+        }
+    })
+}
+
 function registerPageControlButtons() {
     document.querySelector('.pageControl .prev').addEventListener('click', async () => {
         if(currentPage == 1) return
@@ -150,7 +169,6 @@ function configureAutoscroll() {
             if(autoScrollInterval > 3) autoScrollInterval = autoScrollInterval - 2
 
             autoScrollDaemon = setInterval(async () => {
-                console.log('autoscroll daemon interval fired')
                 if(currentPage == pageCount) return disableAutoscroll()
                 await setPage(currentPage + 1)
             }, autoScrollInterval * 1000)
@@ -162,7 +180,6 @@ function configureAutoscroll() {
     document.querySelector('.asInterval-input').addEventListener('input', () => {
         if(document.querySelector('.asInterval-input').value == null) return
         autoScrollInterval = document.querySelector('.asInterval-input').value
-        console.log('autoscroll interval changed to ' + document.querySelector('.asInterval-input').value)
     })
 }
 

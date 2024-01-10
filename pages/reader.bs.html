@@ -31,6 +31,7 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
         integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=='
         crossorigin='anonymous' referrerpolicy='no-referrer'>
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
 
     <script src="/public/js/loaders/reader.js"></script>
     <script src="/public/js/components/reader.config.js"></script>
@@ -42,7 +43,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/searchbox.css'>
 </head>
 
-<body data-bs-theme="dark">      
+<body data-bs-theme="dark" class="p-3">      
     <nav class="navbar" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
@@ -95,12 +96,6 @@
                 <h5 class="card-title title-display"><i class="fa-solid fa-book-bookmark"></i>&nbsp;<a class="noformat">{{title}}</a></h5>
                 <span class="text-body-secondary chapter-display" style="font-size: small;">{{chapter}}</span>
                 <br>
-                <br>
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-secondary dropdown-toggle d-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select chapter</button>
-                    <ul class="dropdown-menu">
-                    </ul>
-                </div>
                 <hr class="hr hr-blurry">
                 <div class="autoscrollConfig input-group-sm d-flex flex-inline">
                     <button class="btn btn-sm btn-secondary toggleAutoscroll"><i class="fa-solid fa-bars-staggered"></i> Auto-scroll: Disabled</button>
