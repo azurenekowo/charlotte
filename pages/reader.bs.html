@@ -33,8 +33,9 @@
         crossorigin='anonymous' referrerpolicy='no-referrer'>
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
 
-    <script src="/public/js/loaders/reader.js"></script>
+    <script src="/public/js/components/dialog.js"></script>
     <script src="/public/js/components/reader.config.js"></script>
+    <script src="/public/js/loaders/reader.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/reader.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/doujinlist.css'>
@@ -43,7 +44,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/searchbox.css'>
 </head>
 
-<body data-bs-theme="dark" class="p-3">      
+<body data-bs-theme="dark">      
     <nav class="navbar" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
@@ -64,12 +65,12 @@
             </form>
         </div>
     </nav>
-    <div id="messageDialog" class="alert alert-dark text-center" role="alert">
+    <div id="messageDialog" class="alert bg-dark shadow border justify-content-center align-items-center text-center mt-2 p-3" role="alert">
         Loading, please wait for a moment...
     </div>
     <div class="doujin-reader d-flex h-100 d-none">
         <div class="display-page p-3">
-            <div class="d-flex justify-content-center h-100 image pb-3"><img src="/public/img/Charlotte_Icon.png" class="img-fluid rounded" alt="..."></div>
+            <div class="d-flex justify-content-center h-100 image pb-3"><img src="/public/img/Charlotte_Icon.png" class="img-fluid rounded loadingPlaceholder" alt="..."></div>
             <div>
                 <div class="progress mt-1 read-progress" style="height: 5px;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                     <div class="progress-bar bar" style="width: 0%"></div>
@@ -94,7 +95,7 @@
             <hr class="hr hr-blurry">
             <div class="settings collapse dont-collapse-sm" id="settingsUI">
                 <h5 class="card-title title-display"><i class="fa-solid fa-book-bookmark"></i>&nbsp;<a class="noformat">{{title}}</a></h5>
-                <span class="text-body-secondary chapter-display" style="font-size: small;">{{chapter}}</span>
+                <span class="text-muted chapter-display" style="font-size: small;">{{chapter}}</span>
                 <br>
                 <hr class="hr hr-blurry">
                 <div class="autoscrollConfig input-group-sm d-flex flex-inline">

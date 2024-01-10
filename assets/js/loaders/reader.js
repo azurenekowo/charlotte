@@ -19,24 +19,28 @@ window.addEventListener('load', async () => {
     try {    
         doujinData = await fetch(`/api/doujin/info?link=${doujinIdentifier}`)
         doujinData = await doujinData.json()
+        if(!doujinData.success) {
+            return showMessage('Backend API error: Failed to load doujin info.', 'error', doujinData.data)
+        }
         doujinData = doujinData.data
-	console.log(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
+	
         chapterData = await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
         chapterData = await chapterData.json()
+        if(!chapterData.success) {
+            return showMessage('Backend API error: Failed to load chapter list.', 'error', chapterData.data)
+        }
         chapterData = chapterData.data.reverse()
     }
     catch(e) {
-        return showError(e, '. Please try again from the doujin page, not via a direct link')
+        return showMessage('Loading doujin information failed. The API is currently unreachable.', 'error', e)
     }
-
-    console.log(chapterData)
     const doujinName = doujinData.name
     const currentChapter = chapterData.find(c => c.url == chapterQuery)
 
     const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
     const data = await res.json()
     if(!data.success) {
-        return showError(data.data, ' while loading the chapter\'s images')
+        return showMessage('Backend API error: Failed to load chapter\'s images.', 'error', data.data)
     }
     imagesList = data.data
     pageCount = imagesList.length
@@ -53,11 +57,12 @@ window.addEventListener('load', async () => {
     document.querySelector('.navbar').classList.add('charlotte-hidden')
     document.querySelector('#messageDialog').classList.add('charlotte-hidden')
 
-    document.body.classList.remove('p-3')
+    document.querySelector('img.loadingPlaceholder').classList.remove('loadingPlaceholder')
     document.querySelector('.doujin-reader').classList.remove('d-none')
     document.title = `Reading: ${doujinName}`
     modifyMetatags(doujinData, doujinIdentifier)
     window.history.replaceState(null, '', window.location.pathname)
+    
     await setPage(1)
     registerKeyNav()
     registerTouchEvt()

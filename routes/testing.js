@@ -7,4 +7,4 @@ router.get('/', async (request, response) => {
 })
 
 module.exports = router
-module.exports.path = '/test'
+module.exports.path = '/maintenance/test'

@@ -4,12 +4,7 @@ window.addEventListener('load', async () => {
     modifyMetatags(sQuery)
     
     if (!sQuery) {
-        const dialog = document.getElementById('messageDialog')
-        dialog.classList.remove('alert-dark')
-        dialog.classList.add('alert-danger')
-        dialog.innerHTML = `Empty search query.`
-        dialog.classList.remove('charlotte-hidden')
-        return
+        return showMessage('Empty search query', 'error')
     }
     document.getElementById('searchbox').value = sQuery
     const res = await fetch(`/api/search?query=${sQuery}`, {
@@ -19,17 +14,9 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if (!data.success) {
-        const dialog = document.getElementById('messageDialog')
-        dialog.classList.add('alert-danger')
-        dialog.innerHTML = 'An error has occurred with the backend API.'
-        dialog.classList.remove('charlotte-hidden')
-        console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
-        console.log(data.data)
-        return
+        return showMessage(`Backend API error: Couldn't connect.`, 'error', data.data)
     }
-    const dialog = document.getElementById('messageDialog')
-    dialog.classList.add('alert-ifno')
-    dialog.innerHTML = `Search results for <code>${sQuery}</code>`
+    showMessage(`Search results for ${sQuery}`, 'info')
 
     document.title = `Search: ${sQuery}`
 

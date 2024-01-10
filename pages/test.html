@@ -5,8 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Charlotte</title>
-
+    <title>Doujin: </title>
+    <meta name="theme-color" content="#975cf6">
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="">
+    <meta property="twitter:description" content="">
+    <meta property="twitter:image" content="">
+    
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel="icon" type="image/png" href="/public/img/Charlotte_Icon.png">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -17,10 +27,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
         integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=='
         crossorigin='anonymous' referrerpolicy='no-referrer'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/page.index.css'>
+
+    <script src="/public/js/components/searchbox.js"></script>
+    <script src="/public/js/components/dialog.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/global.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/doujin.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/message.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/searchbox.css'>
@@ -48,32 +63,12 @@
         </div>
     </nav>
     <br>
-    <div id="messageDialog" class="alert charlotte-hidden" role="alert">
-        Default error
-    </div>
-    <br>
-    <div class="row text-center doujinListing" style="margin: 0 auto; max-width: 90%;">
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-4 p-3">
-                    <img src="https://t.htvncdn.net/images/190/1703013276-lrn0j9t0ck4qvca8e3tipkaj8v3mki14qs9t02sikhn5sv40o79g.jpg"
-                        class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">My Assignment is in the Sexual Relief Department</h5>
-                    </div>
-                </div>
-            </div>
+    <div id="messageDialog" class="alert bg-dark shadow border justify-content-center align-items-center text-center mt-2 p-3">
+        <img src="/public/img/qiqi.png" class="img-fluid" style="width: 120px;">
+        <h4 class="mt-1">An error has occurred!</h4>
+        <div class="details mt-3 mb-3">
+            <span class="text-muted error--details"><code>?f</code> query is missing. Try again from the doujin's page, not via a direct link.</span>
         </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="container">
-        <footer class="py-4 text-center">
-            Charlotte <code>prototypeBuild</code> - Internal usage only.
-        </footer>
     </div>
 </body>
 

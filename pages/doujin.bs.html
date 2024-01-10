@@ -33,6 +33,7 @@
         crossorigin='anonymous' referrerpolicy='no-referrer'>
 
     <script src="/public/js/components/searchbox.js"></script>
+    <script src="/public/js/components/dialog.js"></script>
     <script src="/public/js/loaders/doujin.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/doujin.css'>
@@ -66,10 +67,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active bc-mainTitle" aria-current="page">{{mainTitle}}</li>
+            <li class="breadcrumb-item active bc-mainTitle" aria-current="page"></li>
         </ol>
     </nav>
-    <div id="messageDialog" class="alert alert-dark text-center" role="alert">
+    <div id="messageDialog" class="alert bg-dark shadow border justify-content-center align-items-center text-center mt-2 p-3" role="alert">
         Loading, please wait for a moment...
     </div>
     <div class="card mb-3 doujin-info charlotte-hidden p-1">

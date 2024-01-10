@@ -6,13 +6,7 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if (!data.success) {
-        const dialog = document.getElementById('messageDialog')
-        dialog.classList.add('alert-danger')
-        dialog.innerHTML = 'An error has occurred with the backend API.'
-        dialog.classList.remove('charlotte-hidden')
-        console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:')
-        console.log(data.data)
-        return
+        return showMessage('Search request failed. The API is currently unreachable.', 'error', data.data)
     }
     const doujinData = data.data
     const doujinLS = _.chunk(doujinData, 5)

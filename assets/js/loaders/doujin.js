@@ -7,9 +7,9 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if(!data.success) {
-        return showError(data.data, 'An error has occured with the backend API.')
+        return showMessage('Backend API error: Loading doujin information failed.', 'error', data.data)
     }
-    dialog.classList.add('charlotte-hidden')
+    dialogVisibility(false)
     document.querySelector('div.doujin-info').classList.remove('charlotte-hidden')
 
     const doujinData = data.data  
@@ -44,7 +44,7 @@ async function getChapters(doujinURL, id) {
         Array.from(document.querySelectorAll('button.chapterItem'))[0].click()
     }
     catch(e) {
-        return showError(e, 'An error has occured while loading this doujin\'s chapters.')
+        return showMessage('Backend API error: Loading doujin chapters failed.', 'error', e)
     }
 }
 
@@ -87,7 +87,7 @@ function setInfoPlaceholders(doujinData) {
         document.querySelector('#display-dislikes').innerHTML = `${doujinData.dislikes}`
     }
     catch(e) {
-        return showError(e, 'An error has occured while loading this doujin\'s info.')
+        return showMessage('Parsing error: Failed to load this page due to unexpected value.', 'error', e)
     }
 }
 
@@ -120,14 +120,4 @@ function dateString(unixTS){
     const min = ('0' + a.getMinutes()).slice(-2)
     const time = `${date}/${month}/${year} ${hour}:${min}`
     return time
-}
-
-function showError(error, displayError) {
-    const dialog = document.getElementById('messageDialog')
-    dialog.classList.remove('charlotte-hidden')
-    dialog.classList.remove('alert-dark')
-    dialog.classList.add('alert-danger')
-    dialog.innerHTML = displayError
-    console.log('%c[Charlotte]', 'color: #ae81ff', 'An error has occured! Detailed tracelog:\n',)
-    console.log(error)
 }
