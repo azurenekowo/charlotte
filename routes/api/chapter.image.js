@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs')
+const chalk = require('chalk')
 const config = require('../../config.json')
 
 router.post('/', async (request, response) => {

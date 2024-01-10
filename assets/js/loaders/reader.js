@@ -8,8 +8,10 @@ let autoScrollEnabled = false
 let autoScrollInterval = 5
 let autoScrollDaemon = null
 
+let chapterQuery
+
 window.addEventListener('load', async () => {
-    const chapterQuery = window.location.pathname.replace('/read/', '')
+    chapterQuery = window.location.pathname.replace('/read/', '')
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
    
     let doujinData, chapterData
@@ -86,7 +88,7 @@ async function setPage(pageNumber) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ url: imagesList[pageNumber - 1] })
+        body: JSON.stringify({ url: imagesList[pageNumber - 1], chapter: chapterQuery })
     })
     const data = await response.blob()
     document.querySelector('.display-page img').src = urlCreator.createObjectURL(data)
