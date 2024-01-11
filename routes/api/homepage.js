@@ -3,15 +3,15 @@ const router = express.Router()
 const fs = require('fs')
 const config = require('../../config.json')
 
-router.get('/', async (request, response) => {
-    if(!request.query || !request.query['url']) return response.status(400)
-    const doujinURL = request.query['url']
+router.post('/', async (request, response) => {
+    if(!request.query) return response.sendStatus(400)
+    const searchQuery = request.query['query']
     try {
-        const res = await fetch(`${config.backend.host}/get-chapters?url=${doujinURL}`)
+        const res = await fetch(`${config.backend.host}/homepage`)
         // if(!res.ok) return response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
 
         const data = await res.json()
-        response.setHeader('Content-Type', `application/json`).send({ success: true, data: data })
+        response.setHeader('Content-Type', 'application/json').send({ success: true, data: data })
     }
     catch (e) {
         response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
@@ -19,4 +19,4 @@ router.get('/', async (request, response) => {
 })
 
 module.exports = router
-module.exports.path = '/api/doujin/chaptersList'
+module.exports.path = '/api/homepage'
