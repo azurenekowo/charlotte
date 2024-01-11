@@ -15,8 +15,8 @@ function showMessage(displayText, type, error) {
         <div class="details mt-3 mb-3">
             <span class="text-muted error--details">${displayText}</span>
         </div>`
-        console.error('%c[Charlotte]', 'color: #ae81ff', `${displayText}\nDetailed tracelog:`)
-        console.error(error)
+        console.log('%c[Charlotte]', 'color: #ae81ff', `${displayText}\nDetailed tracelog:`)
+        console.log(error)
     }
     else {
         dialog.innerHTML = displayText

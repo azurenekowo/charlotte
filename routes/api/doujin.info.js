@@ -8,11 +8,13 @@ router.get('/', async (request, response) => {
     const doujinUrl = request.query['link']
     try {
         const res = await fetch(`${config.backend.host}/get-metadata?url=${doujinUrl}`)
+        if(!res.ok) return response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
+
         const data = await res.json()
         response.setHeader('Content-Type', 'application/json').send({ success: true, data: data })
     }
     catch (e) {
-        response.setHeader('Content-Type', 'application/json').send({ success: false, data: JSON.stringify(e) })
+        response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
     }
 })
 

@@ -58,6 +58,8 @@ window.addEventListener('load', async () => {
     document.querySelector('#messageDialog').classList.add('charlotte-hidden')
 
     document.querySelector('img.loadingPlaceholder').classList.remove('loadingPlaceholder')
+    document.body.classList.remove('ps-3')
+    document.body.classList.remove('pe-3')
     document.querySelector('.doujin-reader').classList.remove('d-none')
     document.title = `Reading: ${doujinName}`
     modifyMetatags(doujinData, doujinIdentifier)

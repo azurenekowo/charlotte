@@ -12,12 +12,14 @@ router.post('/', async (request, response) => {
     const requestURL = `${config.backend.host}/download-image?url=${encodeURIComponent(imageURL)}`
     try {
         const res = await fetch(requestURL)
+        if(!res.ok) return response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: res })
+
         const data = await res.arrayBuffer()
         const image = Buffer.from(data)
         response.setHeader('Content-Type', `image/${imageExt}`).send(image)
     }
     catch (e) {
-        response.setHeader('Content-Type', 'application/json').send({ success: false, data: JSON.stringify(e) })
+        response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
     }
 })
 

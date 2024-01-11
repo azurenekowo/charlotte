@@ -4,6 +4,7 @@ const fs = require('fs')
 const os = require('os')
 const process = require('process')
 const config = require('../../config.json')
+const { exec } = require('child_process')
 
 router.get('/', async (request, response) => {
     response.setHeader('Content-Type', 'application/json').send({ 

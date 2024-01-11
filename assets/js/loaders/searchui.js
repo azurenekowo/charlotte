@@ -14,7 +14,7 @@ window.addEventListener('load', async () => {
     })
     const data = await res.json()
     if (!data.success) {
-        return showMessage(`Backend API error: Couldn't connect.`, 'error', data.data)
+        return showMessage(`Search request failed. The API is currently unreachable.`, 'error', data.data)
     }
     showMessage(`Search results for ${sQuery}`, 'info')
 
