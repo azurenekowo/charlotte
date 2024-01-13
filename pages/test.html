@@ -43,12 +43,19 @@
 
 <body data-bs-theme="dark">
     <nav class="navbar" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/public/img/Charlotte_Icon.png" alt="Logo" width="48" height="48"
-                    class="d-inline-block align-text-middle">
+        <div class="container-fluid">   
+            <a class="navbar-brand align-text-middle" href="/">
+                <img src="/public/img/Charlotte_Icon.png" alt="Logo" width="48" height="48" class="d-inline-block align-text-middle">
                 &nbsp;Charlotte
             </a>
+            <ul class="navbar-nav me-auto ms-1 flex-row gap-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="/status">Status</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+            </ul>
             <form class="d-flex" role="search">
                 <div class="form-outline" data-mdb-input-init>
                     <input type="search" id="searchbox" class="form-control" placeholder="Title, keyword or ID...">
@@ -67,7 +74,7 @@
         <img src="/public/img/qiqi.png" class="img-fluid" style="width: 120px;">
         <h4 class="mt-1">An error has occurred!</h4>
         <div class="details mt-3 mb-3">
-            <span class="text-muted error--details"><code>?f</code> query is missing. Try again from the doujin's page, not via a direct link.</span>
+            <span class="text-muted error--details">The API is currently unreachable.</span>
         </div>
     </div>
 </body>

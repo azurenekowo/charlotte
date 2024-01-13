@@ -31,7 +31,7 @@ async function getChapters(doujinURL, id) {
         
         for(let i = 1; i < chapterData.length + 1; i++) {
             const chapterListItem = document.createElement('li')
-            const chapterName = `Chapter ${i}: ${chapterData[i -1].title}`
+            const chapterName = `${chapterData[i -1].title}`
             chapterListItem.innerHTML = `<button class="btn btn-sm dropdown-item chapterItem">${chapterName}</button>`
             chapterListItem.addEventListener('click', async () => { 
                 setReaderURL(chapterData[i - 1].url, id)
