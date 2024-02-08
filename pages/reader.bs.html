@@ -105,18 +105,25 @@
                 <span class="text-muted chapter-display" style="font-size: small;">{{chapter}}</span>
                 <br>
                 <hr class="hr hr-blurry">
-                <div class="autoscrollConfig input-group-sm d-flex flex-inline">
-                    <button class="btn btn-sm btn-secondary toggleAutoscroll"><i class="fa-solid fa-bars-staggered"></i> Auto-scroll: Disabled</button>
-                    <input type="number" class="form-control ms-1 d-none asInterval-input" style="width: 20%; height: fit-content;" value="5" required>
+                <div class="serverConfig dropdown mt-1 dropend ">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle cdn-server-display" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-circle-nodes"></i> Server: Default
+                    </button>
+                    <ul class="dropdown-menu cdn-select-list">
+                    </ul>
                 </div>
-                <button class="btn btn-secondary btn-sm mt-1" id="pagefitToggle"><i class="fa-solid fa-arrows-left-right"></i> Page fit: Height</button><br>
-                <button class="btn btn-secondary btn-sm mt-1" id="progressToggle"><i class="fa-solid fa-percent"></i> Progress: Show</button>
-                <div class="dropdown mt-1 dropend ">
+                <div class="dropdown mt-1 dropend">
                     <button class="btn btn-sm btn-secondary dropdown-toggle pageSelect" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-regular fa-file"></i> Page: 0/0
                     </button>
                     <ul class="dropdown-menu page-select-list">
                     </ul>
+                </div>
+                <button class="btn btn-secondary btn-sm mt-1" id="pagefitToggle"><i class="fa-solid fa-arrows-left-right"></i> Page fit: Height</button><br>
+                <button class="btn btn-secondary btn-sm mt-1" id="progressToggle"><i class="fa-solid fa-percent"></i> Progress: Show</button>
+                <div class="autoscrollConfig input-group-sm d-flex flex-inline mt-1">
+                    <button class="btn btn-sm btn-secondary toggleAutoscroll"><i class="fa-solid fa-bars-staggered"></i> Auto-scroll: Disabled</button>
+                    <input type="number" class="form-control ms-1 d-none asInterval-input" style="width: 20%; height: fit-content;" value="5" required>
                 </div>
                 <br>
                 <div class="charlotte-internal">

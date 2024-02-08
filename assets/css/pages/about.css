@@ -1,0 +1,10 @@
+.team--list {
+    flex-direction: row !important
+}
+
+@media only screen and (max-width: 900px) {
+    .team--list {
+        flex-direction: column !important;
+	gap: 30px !important
+    }
+}

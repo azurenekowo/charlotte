@@ -13,6 +13,7 @@ let chapterQuery
 window.addEventListener('load', async () => {
     chapterQuery = window.location.pathname.replace('/read/', '')
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
+    if(!doujinIdentifier) return showMessage('Missing identifier tag (direct linked). Try again from the doujin\'s page.', 'error', null)
    
     let doujinData, chapterData
 
@@ -37,12 +38,22 @@ window.addEventListener('load', async () => {
     const doujinName = doujinData.name
     const currentChapter = chapterData.find(c => c.url == chapterQuery)
 
-    const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
-    const data = await res.json()
-    if(!data.success) {
-        return showMessage('Backend API error: Failed to load chapter\'s images.', 'error', data.data)
-    }
-    imagesList = data.data
+    const cdnSelectorMenu = document.querySelector('ul.cdn-select-list')
+    const cdnChoiceDefault = document.createElement('li')
+    cdnChoiceDefault.innerHTML = '<a class="dropdown-item active" onclick="">Default</a>'
+    cdnChoiceDefault.onclick = async () => { await configureCDNServer(chapterQuery, 'default', 'Default') }
+    const cdnChoiceAlt1 = document.createElement('li')
+    cdnChoiceAlt1.innerHTML = '<a class="dropdown-item" onclick="">Alternate 1</a>'
+    cdnChoiceAlt1.onclick = async () => { await configureCDNServer(chapterQuery, 'cdn1', 'Alternate 1') }
+    const cdnChoiceAlt2 = document.createElement('li')
+    cdnChoiceAlt2.innerHTML = '<a class="dropdown-item" onclick="">Alternate 2</a>'
+    cdnChoiceAlt2.onclick = async () => { await configureCDNServer(chapterQuery, 'cdn2', 'Alternate 2') }
+    
+    cdnSelectorMenu.appendChild(cdnChoiceDefault)
+    cdnSelectorMenu.appendChild(cdnChoiceAlt1)
+    cdnSelectorMenu.appendChild(cdnChoiceAlt2)
+
+    await configureCDNServer(chapterQuery, 'default', 'Default')
     pageCount = imagesList.length
     for(let i = 1; i < pageCount + 1; i++) {
         const pageListItem = document.createElement('li')
@@ -72,6 +83,16 @@ window.addEventListener('load', async () => {
     configureAutoscroll()
 })
 
+async function configureCDNServer(chapterQuery, choice, cdnName) {
+    const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
+    const data = await res.json()
+    if(!data.success) {
+        return showMessage('Backend API error: Failed to load chapter\'s images.', 'error', data.data)
+    }
+    imagesList = data.data[choice]
+    document.querySelector('.cdn-server-display').innerHTML = `<i class="fa-solid fa-circle-nodes"></i> Server: ${cdnName}`
+}
+
 function modifyMetatags(doujinData, doujinIdentifier) {
     document.querySelector('title').innerHTML = `Reading: ${doujinData.name}`
     document.querySelector('meta[name="title"]').setAttribute('content', `Reading: ${doujinData.name}`)
@@ -95,7 +116,7 @@ async function setPage(pageNumber) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ url: imagesList[pageNumber - 1], chapter: chapterQuery })
+        body: JSON.stringify({ url: imagesList[pageNumber - 1] })
     })
     const data = await response.blob()
     document.querySelector('.display-page img').src = urlCreator.createObjectURL(data)
@@ -134,16 +155,16 @@ function registerTouchEvt() {
     const displayImagePage = document.querySelector('.display-page .image img')
     // console.log(displayImagePage)
     const touchHandler = new Hammer(displayImagePage)
-    touchHandler.on('tap', (e) => {
+    touchHandler.on('tap', async (e) => {
         // alert(JSON.stringify(e, null, 4))
         const deltaX = e.center.x
         const deltaPerc = Math.round((deltaX / displayImagePage.width) * 100)
         if(deltaPerc > 50) {
-            setPage(currentPage + 1)
+            await setPage(currentPage + 1)
             // alert(`Tap evt fired - Scroll RIGHT\nX ${deltaX} (${deltaPerc}% imageWidth)`)
         }
         else if(deltaPerc < 50) {
-            setPage(currentPage - 1)
+            await setPage(currentPage - 1)
             // alert(`Tap evt fired - Scroll LEFT\nX ${deltaX} (${deltaPerc}% imageWidth)`)
         }
     })

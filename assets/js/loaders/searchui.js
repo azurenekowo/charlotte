@@ -7,7 +7,7 @@ window.addEventListener('load', async () => {
         return showMessage('Empty search query', 'error')
     }
     document.getElementById('searchbox').value = sQuery
-    const res = await fetch(`/api/search?query=${sQuery}`, {
+    const res = await fetch(`/api/search?query=${sQuery}&pages=10`, {
         headers: {
         },
         method: 'POST'
@@ -16,18 +16,29 @@ window.addEventListener('load', async () => {
     if (!data.success) {
         return showMessage(`Search request failed. The API is currently unreachable.`, 'error', data.data)
     }
-    showMessage(`Search results for ${sQuery}`, 'info')
+    showMessage(`Search results for "${sQuery}"`, 'info')
 
     document.title = `Search: ${sQuery}`
 
-    const doujinData = data.data
+    const doujinData = chunkSearchResults(data.data)
+    loadSearchResults(doujinData[0])
+})
+
+function modifyMetatags(q) {
+    document.querySelector('title').innerHTML = `Charlotte - Search: ${q}`
+    document.querySelector('meta[name="title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+    document.querySelector('meta[property="og:title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+    document.querySelector('meta[property="twitter:title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+}
+
+function loadSearchResults(doujinData) {
     const doujinLS = _.chunk(doujinData, 5)
     const doujinContainer = document.querySelector('div.doujinListing')
+    doujinContainer.innerHTML = ''
     for (let i = 0; i < doujinLS.length; i++) {
         let htmlCode = `<div class="row text-center">`
         doujinLS[i].forEach(doujin => {
-            htmlCode +=
-                `<div class="col doujin">
+            htmlCode += `<div class="col doujin">
                 <div class="thumbnail">
                     <a href="/doujin/${doujin.url}">
                         <img src="${doujin.cover}" alt="thumbnail" style="width: 100%; height: fit-content">
@@ -39,12 +50,35 @@ window.addEventListener('load', async () => {
         htmlCode += `</div>\n`
         doujinContainer.innerHTML += htmlCode
     }
+}
 
-})
+function chunkSearchResults(doujinData) {
+    const chunked =  _.chunk(doujinData, 15)
+    if(chunked.length > 1) setupPagination(chunked)
 
-function modifyMetatags(q) {
-    document.querySelector('title').innerHTML = `Charlotte - Search: ${q}`
-    document.querySelector('meta[name="title"]').setAttribute('content', `Charlotte - Search: ${q}`)
-    document.querySelector('meta[property="og:title"]').setAttribute('content', `Charlotte - Search: ${q}`)
-    document.querySelector('meta[property="twitter:title"]').setAttribute('content', `Charlotte - Search: ${q}`)
+    return chunked
+}
+
+function setupPagination(doujinData) {
+    const pageNav = document.querySelector('#pageNav')
+    // pageNav.insertAdjacentHTML('beforeend', '<li class="page-item disabled nav-prev"><a class="page-link">Previous</a></li>')
+    for(let i = 1; i < doujinData.length; i++) {
+        const pageElement = document.createElement('li')
+        pageElement.classList.add('page-item')
+        pageElement.innerHTML = `<a class="page-link">${i}</a>`
+        pageElement.onclick = () => {
+            const pageElementList = Array.from(document.querySelectorAll('#pageNav li'))
+            pageElementList.forEach(item => item.classList.remove('active'))
+            pageElement.classList.add('active')
+            handlePageChange(i - 1, doujinData)
+        }
+        if(i == 1) pageElement.classList.add('active')
+        pageNav.appendChild(pageElement)
+    }
+    pageNav.classList.remove('d-none')
+    // pageNav.insertAdjacentHTML('beforeend', '<li class="page-item nav-next"><a class="page-link">Next</a></li>')
+}
+
+function handlePageChange(index, doujinData) {
+    loadSearchResults(doujinData[index])
 }
