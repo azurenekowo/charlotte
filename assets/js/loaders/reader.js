@@ -11,7 +11,7 @@ let autoScrollDaemon = null
 let chapterQuery
 
 window.addEventListener('load', async () => {
-    chapterQuery = window.location.pathname.replace('/read/', '')
+    chapterQuery = decodeURIComponent(window.location.pathname.replace('/read/', ''))
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
     if(!doujinIdentifier) return showMessage('Missing identifier tag (direct linked). Try again from the doujin\'s page.', 'error', null)
    
