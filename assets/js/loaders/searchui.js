@@ -20,6 +20,7 @@ window.addEventListener('load', async () => {
 
     document.title = `Search: ${sQuery}`
 
+    if(data.data.length == 0) return showMessage(`No results found for "${sQuery}"... Maybe try again?`, 'error', null)
     const doujinData = chunkSearchResults(data.data)
     loadSearchResults(doujinData[0])
 })
@@ -50,6 +51,8 @@ function loadSearchResults(doujinData) {
         htmlCode += `</div>\n`
         doujinContainer.innerHTML += htmlCode
     }
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 function chunkSearchResults(doujinData) {
