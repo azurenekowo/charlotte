@@ -65,7 +65,7 @@ function chunkSearchResults(doujinData) {
 function setupPagination(doujinData) {
     const pageNav = document.querySelector('#pageNav')
     // pageNav.insertAdjacentHTML('beforeend', '<li class="page-item disabled nav-prev"><a class="page-link">Previous</a></li>')
-    for(let i = 1; i < doujinData.length; i++) {
+    for(let i = 1; i < doujinData.length + 1; i++) {
         const pageElement = document.createElement('li')
         pageElement.classList.add('page-item')
         pageElement.innerHTML = `<a class="page-link">${i}</a>`
