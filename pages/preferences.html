@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Charlotte</title>
+    <title>Charlotte - Preferences</title>
     <meta name="title" content="Charlotte">
     <meta name="theme-color" content="#975cf6">
     <meta name="description" content="A beautiful, clean alternative frontend for HentaiVN.">
@@ -15,6 +15,7 @@
     <meta property="twitter:title" content="Charlotte">
     <meta property="twitter:description" content="A beautiful, clean alternative frontend for HentaiVN.">
     <meta property="twitter:image" content="/public/img/Charlotte_Icon.png">
+    
 
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel="icon" type="image/png" href="/public/img/Charlotte_Icon.png">
@@ -31,12 +32,9 @@
         integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=='
         crossorigin='anonymous' referrerpolicy='no-referrer'>
 
-    <script src="/public/js/components/dialog.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/global.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/about.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/message.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/searchbox.css'>
 </head>
 
 <body data-bs-theme="dark">
@@ -57,27 +55,24 @@
         </div>
     </nav>
     <br>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Preferences</li>
+        </ol>
+    </nav>
     <div id="messageDialog" class="alert bg-dark shadow border justify-content-center align-items-center text-center mt-2 p-3" role="alert">
-        <img src="/public/img/Charlotte_Icon.png" class="img-fluid" style="width: 120px;">
-        <h3 class="mt-1">Charlotte</h3>
-        <div class="details mt-3 mb-3">
-            <p class="text-muted" style="white-space: pre-line;">A simple, beautiful alternative frontend for HentaiVN <i>that just works.</i>
-            Built with <i class="fa-solid fa-heart" style="color: lightcoral;"></i>
-            </p>
-            
-            <h5 class="mt-3">Credits / Our Team</h5>
-            <div class="d-flex justify-content-evenly mt-3 team--list" style="margin: 0 auto; width: 80%;">
-                <div class="d-flex flex-column text-center align-items-center"><img class="border rounded-circle" src="https://avatars.githubusercontent.com/u/67498765?v=4" style="width: 64px;"><a class="noformat" href="https://me.azuree.moe">Azure</a></div> 
-                <div class="d-flex flex-column text-center align-items-center"><img class="border rounded-circle" src="https://avatars.githubusercontent.com/u/73286927?v=4" style="width: 64px;"><a class="noformat" href="https://qtpc.tech">QuanTrieuPCYT</a></div> 
-                <div class="d-flex flex-column text-center align-items-center"><img class="border rounded-circle" src="https://avatars.githubusercontent.com/u/32933514?v=4" style="width: 64px;"><a class="noformat" href="https://stdpi.fr.to/">hUwUtao</a></div> 
-                <div class="d-flex flex-column text-center align-items-center"><img class="border rounded-circle" src="https://avatars.githubusercontent.com/u/138131197?v=4" style="width: 64px;"><a class="noformat" href="https://github.com/4pii4/">pi.kt</a></div> 
+        <h4><i class="fa-solid fa-gear"></i> Preferences</h4>
+        <span class="text-muted">Note: Settings are client-sided only.</span>
+        <br>
+        <br>
+        <div class="controls-prefs align-items-center d-flex justify-content-center flex-column">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="opt-HideTabNameOnLFocus">
+                <label class="form-check-label" for="opt-HideTabNameOnLFocus">Hide tab name on lost focus</label>
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
 </body>
 
 </html>

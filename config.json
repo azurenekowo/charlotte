@@ -3,7 +3,8 @@
         "port": 8000
     },
     "backend": {
-        "host": "http://127.0.0.1:7479"
+        "host": "http://127.0.0.1:7479",
+        "cacheFolder": "cached/"
     },
     "debug": true,
     "checkForUpdates": false
