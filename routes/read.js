@@ -3,7 +3,7 @@ const router = express.Router()
 const fs = require('fs')
 
 router.get('/:doujinUrl', async (request, response) => {
-    response.send(fs.readFileSync('pages/reader.bs.html').toString())
+    response.send(fs.readFileSync('pages/reader.html').toString())
 })
 
 module.exports = router

@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Charlotte - Status</title>
+    <title>Charlotte - Preferences</title>
+    <meta name="title" content="Charlotte">
     <meta name="theme-color" content="#975cf6">
-    <meta name="title" content="Charlotte - Status">
-    <meta name="description" content="Information and status about this instance">
-    <meta property="og:title" content="Charlotte - Status">
-    <meta property="og:description" content="Information and status about this instance">
+    <meta name="description" content="A beautiful, clean alternative frontend for HentaiVN.">
+    <meta property="og:title" content="Charlotte">
+    <meta property="og:description" content="A beautiful, clean alternative frontend for HentaiVN.">
     <meta property="og:image" content="/public/img/Charlotte_Icon.png">
-    <meta property="twitter:title" content="Charlotte - Status">
-    <meta property="twitter:description" content="Information and status about this instance">
+    <meta property="twitter:title" content="Charlotte">
+    <meta property="twitter:description" content="A beautiful, clean alternative frontend for HentaiVN.">
     <meta property="twitter:image" content="/public/img/Charlotte_Icon.png">
     
 
@@ -32,12 +32,9 @@
         integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=='
         crossorigin='anonymous' referrerpolicy='no-referrer'>
 
-    <script src="/public/js/loaders/status.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/pages/global.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/doujinlist.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/message.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/public/css/components/searchbox.css'>
 </head>
 
 <body data-bs-theme="dark">
@@ -61,10 +58,20 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Status</li>
+            <li class="breadcrumb-item active" aria-current="page">Preferences</li>
         </ol>
     </nav>
     <div id="messageDialog" class="alert bg-dark shadow border justify-content-center align-items-center text-center mt-2 p-3" role="alert">
+        <h4><i class="fa-solid fa-gear"></i> Preferences</h4>
+        <span class="text-muted">Note: Settings are client-sided only.</span>
+        <br>
+        <br>
+        <div class="controls-prefs align-items-center d-flex justify-content-center flex-column">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="opt-HideTabNameOnLFocus">
+                <label class="form-check-label" for="opt-HideTabNameOnLFocus">Hide tab name on lost focus</label>
+            </div>
+        </div>
     </div>
 </body>
 

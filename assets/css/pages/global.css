@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&family=Noto+Sans+Mono&display=swap');
 
+/*custom bootstrap modification*/
+[data-bs-theme=dark] {
+    --bs-body-bg: #121212 !important;
+    --bs-body-bg-rgb: 18, 18, 18 !important;
+    --bs-dark-rgb: 18, 18, 18 !important;
+    --bs-tertiary-bg: #202020 !important;
+    --bs-border-color: #404040 !important;
+}
+
+button[class*="btn-outline-"]:hover {
+    --bs-btn-hover-color: white !important;
+    --bs-btn-active-color: white !important;
+}
+
 body {
     font-family: 'Be Vietnam Pro', sans-serif !important;
     margin: 0 auto;

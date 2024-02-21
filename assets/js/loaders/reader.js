@@ -9,9 +9,11 @@ let autoScrollInterval = 5
 let autoScrollDaemon = null
 
 let chapterQuery
+let doujinIdentifierPersistent
 
 window.addEventListener('load', async () => {
-    chapterQuery = window.location.pathname.replace('/read/', '')
+    chapterQuery = decodeURIComponent(window.location.pathname.replace('/read/', ''))
+    doujinIdentifierPersistent = chapterQuery
     const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
     if(!doujinIdentifier) return showMessage('Missing identifier tag (direct linked). Try again from the doujin\'s page.', 'error', null)
    
@@ -35,55 +37,62 @@ window.addEventListener('load', async () => {
     catch(e) {
         return showMessage('Loading doujin information failed. The API is currently unreachable.', 'error', e)
     }
-    const doujinName = doujinData.name
-    const currentChapter = chapterData.find(c => c.url == chapterQuery)
 
-    const cdnSelectorMenu = document.querySelector('ul.cdn-select-list')
-    const cdnChoiceDefault = document.createElement('li')
-    cdnChoiceDefault.innerHTML = '<a class="dropdown-item active" onclick="">Default</a>'
-    cdnChoiceDefault.onclick = async () => { await configureCDNServer(chapterQuery, 'default', 'Default') }
-    const cdnChoiceAlt1 = document.createElement('li')
-    cdnChoiceAlt1.innerHTML = '<a class="dropdown-item" onclick="">Alternate 1</a>'
-    cdnChoiceAlt1.onclick = async () => { await configureCDNServer(chapterQuery, 'cdn1', 'Alternate 1') }
-    const cdnChoiceAlt2 = document.createElement('li')
-    cdnChoiceAlt2.innerHTML = '<a class="dropdown-item" onclick="">Alternate 2</a>'
-    cdnChoiceAlt2.onclick = async () => { await configureCDNServer(chapterQuery, 'cdn2', 'Alternate 2') }
-    
-    cdnSelectorMenu.appendChild(cdnChoiceDefault)
-    cdnSelectorMenu.appendChild(cdnChoiceAlt1)
-    cdnSelectorMenu.appendChild(cdnChoiceAlt2)
+    try {  
+        const doujinName = doujinData.name
+        const currentChapter = chapterData.find(c => c.url == chapterQuery)
 
-    await configureCDNServer(chapterQuery, 'default', 'Default')
-    pageCount = imagesList.length
-    for(let i = 1; i < pageCount + 1; i++) {
-        const pageListItem = document.createElement('li')
-        pageListItem.innerHTML = `<button class="btn btn-sm dropdown-item">${i}</button>`
-        pageListItem.addEventListener('click', async () => { await setPage(i) })
-        document.querySelector('ul.page-select-list').appendChild(pageListItem)
+        const cdnSelectorMenu = document.querySelector('ul.cdn-select-list')
+        const cdnChoiceDefault = document.createElement('li')
+        cdnChoiceDefault.innerHTML = '<a class="dropdown-item active" onclick="">Default</a>'
+        cdnChoiceDefault.onclick = async () => { await configureCDNServer(chapterQuery, 'default', 'Default', cdnChoiceDefault) }
+        const cdnChoiceAlt1 = document.createElement('li')
+        cdnChoiceAlt1.innerHTML = '<a class="dropdown-item" onclick="">Alternate 1</a>'
+        cdnChoiceAlt1.onclick = async () => { await configureCDNServer(chapterQuery, 'cdn1', 'Alternate 1', cdnChoiceAlt1) }
+        const cdnChoiceAlt2 = document.createElement('li')
+        cdnChoiceAlt2.innerHTML = '<a class="dropdown-item" onclick="">Alternate 2</a>'
+        cdnChoiceAlt2.onclick = async () => { await configureCDNServer(chapterQuery, 'cdn2', 'Alternate 2', cdnChoiceAlt2) }
+        
+        cdnSelectorMenu.appendChild(cdnChoiceDefault)
+        cdnSelectorMenu.appendChild(cdnChoiceAlt1)
+        cdnSelectorMenu.appendChild(cdnChoiceAlt2)
+
+        await configureCDNServer(chapterQuery, 'default', 'Default', null)
+        pageCount = imagesList.length
+        for(let i = 1; i < pageCount + 1; i++) {
+            const pageListItem = document.createElement('li')
+            pageListItem.innerHTML = `<button class="btn btn-sm dropdown-item">${i}</button>`
+            pageListItem.addEventListener('click', async () => { await setPage(i) })
+            document.querySelector('ul.page-select-list').appendChild(pageListItem)
+        }
+        document.querySelector('.title-display a').href = `/doujin/${doujinIdentifier}`
+        document.querySelector('.title-display a').innerHTML = `${doujinName}`
+        document.querySelector('.chapter-display').innerHTML = `Chapter ${chapterData.indexOf(currentChapter) + 1}: ${currentChapter.title}`
+        
+        document.querySelector('.navbar').classList.add('charlotte-hidden')
+        document.querySelector('#messageDialog').classList.add('charlotte-hidden')
+
+        document.querySelector('img.loadingPlaceholder').classList.remove('loadingPlaceholder')
+        document.body.classList.remove('ps-3')
+        document.body.classList.remove('pe-3')
+        document.querySelector('.doujin-reader').classList.remove('d-none')
+        document.title = `Reading: ${doujinName}`
+        modifyMetatags(doujinData, doujinIdentifier)
+        window.history.replaceState(null, '', window.location.pathname)
+        
+        await setPage(1)
+        registerKeyNav()
+        registerTouchEvt()
+        registerPageControlButtons()
+        configureAutoscroll()
     }
-    document.querySelector('.title-display a').href = `/doujin/${doujinIdentifier}`
-    document.querySelector('.title-display a').innerHTML = `${doujinName}`
-    document.querySelector('.chapter-display').innerHTML = `Chapter ${chapterData.indexOf(currentChapter) + 1}: ${currentChapter.title}`
-    
-    document.querySelector('.navbar').classList.add('charlotte-hidden')
-    document.querySelector('#messageDialog').classList.add('charlotte-hidden')
-
-    document.querySelector('img.loadingPlaceholder').classList.remove('loadingPlaceholder')
-    document.body.classList.remove('ps-3')
-    document.body.classList.remove('pe-3')
-    document.querySelector('.doujin-reader').classList.remove('d-none')
-    document.title = `Reading: ${doujinName}`
-    modifyMetatags(doujinData, doujinIdentifier)
-    window.history.replaceState(null, '', window.location.pathname)
-    
-    await setPage(1)
-    registerKeyNav()
-    registerTouchEvt()
-    registerPageControlButtons()
-    configureAutoscroll()
+    catch(e) {
+        console.error(e)
+        return showMessage('An uncaught exception has occured! Please check the console for further details.', 'error', null)
+    }
 })
 
-async function configureCDNServer(chapterQuery, choice, cdnName) {
+async function configureCDNServer(chapterQuery, choice, cdnName, htmlElement) {
     const res = await fetch(`/api/chapter/imagesList?url=${chapterQuery}`)
     const data = await res.json()
     if(!data.success) {
@@ -91,6 +100,8 @@ async function configureCDNServer(chapterQuery, choice, cdnName) {
     }
     imagesList = data.data[choice]
     document.querySelector('.cdn-server-display').innerHTML = `<i class="fa-solid fa-circle-nodes"></i> Server: ${cdnName}`
+    Array.from(document.querySelectorAll('.cdn-select-list a')).forEach(item => item.classList.remove('active'))
+    if(htmlElement) htmlElement.classList.add('active')
 }
 
 function modifyMetatags(doujinData, doujinIdentifier) {
@@ -111,31 +122,49 @@ async function setPage(pageNumber) {
     currentPage = pageNumber
     percentage = (currentPage / pageCount) * 100
 
-    const response = await fetch('/api/chapter/getImage', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ url: imagesList[pageNumber - 1] })
-    })
-    const data = await response.blob()
-    document.querySelector('.display-page img').src = urlCreator.createObjectURL(data)
+    try {
+        const response = await fetch('/api/chapter/getImage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url: imagesList[pageNumber - 1], identifier: doujinIdentifierPersistent })
+        })
+        const data = await response.blob()
+        if(!response.ok) {
+            document.body.classList.add('ps-3')
+            document.body.classList.add('pe-3')
+            document.querySelector('.navbar').classList.remove('charlotte-hidden')
+            document.querySelector('.doujin-reader').classList.add('d-none')
+            return showMessage('Backend API error: Failed to fetch image.', 'error', e)
+        }
 
-    document.querySelector('.pageSelect').innerHTML = `<i class="fa-regular fa-file"></i> Page: ${currentPage}/${pageCount}`
-    document.querySelector('.pageSelectInput').innerHTML = `${currentPage}/${pageCount}`
-    document.querySelectorAll('.page-select-list li button')
-    const pageSelectorList = Array.from(document.querySelectorAll('.page-select-list li button'))
-    pageSelectorList.forEach(item => item.classList.remove('active'))
-    pageSelectorList[currentPage - 1].classList.add('active')
-    document.querySelector('.read-progress').setAttribute('aria-valuenow', percentage)
-    document.querySelector('.read-progress .bar').style.width = `${percentage}%`
-
-    if(currentPage == 1) document.querySelector('.pageControl .prev').setAttribute('disabled', '')
-    else if(currentPage == pageCount) document.querySelector('.pageControl .next').setAttribute('disabled', '')
-    else {
-        document.querySelector('.pageControl .prev').removeAttribute('disabled')
-        document.querySelector('.pageControl .next').removeAttribute('disabled')
+        document.querySelector('.display-page img').src = urlCreator.createObjectURL(data)
+        
+        document.querySelector('.pageSelect').innerHTML = `<i class="fa-regular fa-file"></i> Page: ${currentPage}/${pageCount}`
+        document.querySelector('.pageSelectInput').innerHTML = `${currentPage}/${pageCount}`
+        document.querySelectorAll('.page-select-list li button')
+        const pageSelectorList = Array.from(document.querySelectorAll('.page-select-list li button'))
+        pageSelectorList.forEach(item => item.classList.remove('active'))
+        pageSelectorList[currentPage - 1].classList.add('active')
+        document.querySelector('.read-progress').setAttribute('aria-valuenow', percentage)
+        document.querySelector('.read-progress .bar').style.width = `${percentage}%`
+    
+        if(currentPage == 1) document.querySelector('.pageControl .prev').setAttribute('disabled', '')
+        else if(currentPage == pageCount) document.querySelector('.pageControl .next').setAttribute('disabled', '')
+        else {
+            document.querySelector('.pageControl .prev').removeAttribute('disabled')
+            document.querySelector('.pageControl .next').removeAttribute('disabled')
+        }
     }
+    catch(e) {
+        document.body.classList.add('ps-3')
+        document.body.classList.add('pe-3')
+        document.querySelector('.navbar').classList.remove('charlotte-hidden')
+        document.querySelector('.doujin-reader').classList.add('d-none')
+        return showMessage('Backend API error: Failed to fetch image.', 'error', e)
+    }
+    
 }
 
 function registerKeyNav() {
@@ -156,16 +185,15 @@ function registerTouchEvt() {
     // console.log(displayImagePage)
     const touchHandler = new Hammer(displayImagePage)
     touchHandler.on('tap', async (e) => {
-        // alert(JSON.stringify(e, null, 4))
         const deltaX = e.center.x
         const deltaPerc = Math.round((deltaX / displayImagePage.width) * 100)
-        if(deltaPerc > 50) {
+        if(deltaPerc > 50) {            
+            if(currentPage == pageCount) return
             await setPage(currentPage + 1)
-            // alert(`Tap evt fired - Scroll RIGHT\nX ${deltaX} (${deltaPerc}% imageWidth)`)
         }
         else if(deltaPerc < 50) {
+            if(currentPage == 1) return
             await setPage(currentPage - 1)
-            // alert(`Tap evt fired - Scroll LEFT\nX ${deltaX} (${deltaPerc}% imageWidth)`)
         }
     })
 }
@@ -194,9 +222,9 @@ function configureAutoscroll() {
             document.querySelector('.toggleAutoscroll').innerHTML = '<i class="fa-solid fa-bars-staggered"></i> Autoscroll: Enabled'
             document.querySelector('.asInterval-input').classList.remove('d-none')
             autoScrollInterval = document.querySelector('.asInterval-input').value
-            // Note: The delay modification exists due to the image loading lag.
-            // For now, it loops faster than the user's value for 2 seconds.
-            if(autoScrollInterval > 3) autoScrollInterval = autoScrollInterval - 2
+            // IMPORTANT: The delay modification exists due to the image loading lag.
+            // For now, it loops faster than the user's value for 1 seconds.
+            if(autoScrollInterval > 5) autoScrollInterval = autoScrollInterval - 1
 
             autoScrollDaemon = setInterval(async () => {
                 if(currentPage == pageCount) return disableAutoscroll()
@@ -222,13 +250,4 @@ function disableAutoscroll() {
         autoScrollDaemon = null
     }
     return
-}
-
-function showError(e, reason) {
-    const dialog = document.getElementById('messageDialog')
-    dialog.classList.remove('alert-dark')
-    dialog.classList.add('alert-danger')
-    dialog.innerHTML = `An error has occurred${reason}.`
-    console.log('%c[Charlotte]', 'color: #ae81ff', 'Backend API error. Detailed tracelog:\n',)
-    console.log(e)
 }

@@ -2,3 +2,4 @@ node_modules/
 assets/img/doujin-demo/
 test.js
 test.jpg
+cached/*

@@ -50,7 +50,10 @@ async function getChapters(doujinURL, id) {
 
 function setReaderURL(url, refurl) {
     document.querySelector('.btn-readnow').addEventListener('click', () => {
-        window.location = `/read/${url}?f=${refurl}`
+        window.location.href = `/read/${url}?f=${refurl}`
+    })
+    document.querySelector('.btn-extlink').addEventListener('click', () => {
+        alert('Gateway not yet implemented.')
     })
 }
 

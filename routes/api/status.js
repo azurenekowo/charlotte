@@ -17,7 +17,8 @@ router.get('/', async (request, response) => {
                 uptime: Math.round(os.uptime())
             },
             instance: {
-                id: null
+                id: null,
+                build: fs.readFileSync('COMMIT_ID.txt').toString()
             }
         }
     })

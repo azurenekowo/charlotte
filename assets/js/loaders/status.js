@@ -11,14 +11,12 @@ window.addEventListener('load', async () => {
     const data = await res.json()
     const status = data.data
 
-    dialog.classList.remove('alert-dark')
     dialog.classList.remove('text-center')
-    dialog.classList.add('alert-success')
     dialog.innerHTML = `Server is up!<br><br>
     <p class="align-self-start text-left">
     Uptime: <code>${convertSeconds(status.uptime)}</code><br>
     Machine: <code>${status.server.machine} / ${status.server.user}</code><br>
-    Instance ID: <code>${status.instance.id}</code>
+    Build ID: <code>${status.instance.build}</code>
     </p>`
     return
 })
