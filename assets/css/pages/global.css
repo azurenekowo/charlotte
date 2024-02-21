@@ -1,12 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&family=Noto+Sans+Mono&display=swap');
 
 /*custom bootstrap modification*/
-[data-bs-theme=dark] {
+[data-bs-theme="dark"] {
     --bs-body-bg: #121212 !important;
     --bs-body-bg-rgb: 18, 18, 18 !important;
+    --bs-dark: #121212 !important;
     --bs-dark-rgb: 18, 18, 18 !important;
     --bs-tertiary-bg: #202020 !important;
+    --bs-tertiary-bg-rgb: 32, 32, 32 !important;
+    --bs-secondary: #282828 !important;
+    --bs-secondary-rgb: 40, 40, 40 !important;
+    --bs-secondary-bg: #282828 !important;
+    --bs-secondary-bg-rgb: 40, 40, 40 !important;
     --bs-border-color: #404040 !important;
+    --bs-secondary-hover-bg: #484848 !important
+}
+
+.btn-secondary {
+    --bs-btn-bg: var(--bs-secondary) !important;
+    --bs-btn-border-color: var(--bs-border-color) !important;
+    --bs-btn-hover-bg: var(--bs-secondary-hover-bg) !important;
+    --bs-btn-hover-border-color: var(--bs-border-color) !important;
+}
+.badge {
+    border: 1px solid var(--bs-border-color) !important
+}
+.text-bg-info {
+    color: white !important
 }
 
 button[class*="btn-outline-"]:hover {
