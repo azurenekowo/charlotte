@@ -21,10 +21,13 @@
     --bs-btn-border-color: var(--bs-border-color) !important;
     --bs-btn-hover-bg: var(--bs-secondary-hover-bg) !important;
     --bs-btn-hover-border-color: var(--bs-border-color) !important;
+    --bs-btn-active-bg: var(--bs-secondary-hover-bg) !important;  
 }
+
 .badge {
     border: 1px solid var(--bs-border-color) !important
 }
+
 .text-bg-info {
     color: white !important
 }

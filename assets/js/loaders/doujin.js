@@ -12,9 +12,12 @@ window.addEventListener('load', async () => {
     dialogVisibility(false)
     document.querySelector('div.doujin-info').classList.remove('charlotte-hidden')
 
-    const doujinData = data.data  
-    setInfoPlaceholders(doujinData)
-    modifyMetatags(doujinData, doujinIdentifier)
+    const doujinData = data.data
+    document.querySelector('.btn-extlink').addEventListener('click', () => {
+        window.location.href = `${doujinData.from}`
+    })
+    setInfoPlaceholders(doujinData.details)
+    modifyMetatags(doujinData.details, doujinIdentifier)
 
     await getChapters(doujinIdentifier, doujinIdentifier)
 })
@@ -52,17 +55,15 @@ function setReaderURL(url, refurl) {
     document.querySelector('.btn-readnow').addEventListener('click', () => {
         window.location.href = `/read/${url}?f=${refurl}`
     })
-    document.querySelector('.btn-extlink').addEventListener('click', () => {
-        alert('Gateway not yet implemented.')
-    })
 }
 
 function setInfoPlaceholders(doujinData) {
     // Titles
     try {
-        document.title = mainTitleHandler(doujinData.name)
-        document.querySelector('#title-main').innerHTML = mainTitleHandler(doujinData.name)
-        document.querySelector('.bc-mainTitle').innerHTML = mainTitleHandler(doujinData.name)
+        const doujinTitle = doujinData.name.includes('-') ? mainTitleHandler(doujinData.name) : doujinData.name
+        document.title = doujinTitle
+        document.querySelector('#title-main').innerHTML = doujinTitle
+        document.querySelector('.bc-mainTitle').innerHTML = doujinTitle
         doujinData.other_names != null ? document.querySelector('#title-alt').innerHTML = doujinData.other_names.join(', ') : document.querySelector('#title-alt').classList.add('charlotte-hidden')
         // Cover art
         document.querySelector('img.display-coverart').src = doujinData.cover

@@ -11,6 +11,8 @@ let autoScrollDaemon = null
 let chapterQuery
 let doujinIdentifierPersistent
 
+let pageLoadingLock = false
+
 window.addEventListener('load', async () => {
     chapterQuery = decodeURIComponent(window.location.pathname.replace('/read/', ''))
     doujinIdentifierPersistent = chapterQuery
@@ -25,7 +27,7 @@ window.addEventListener('load', async () => {
         if(!doujinData.success) {
             return showMessage('Backend API error: Failed to load doujin info.', 'error', doujinData.data)
         }
-        doujinData = doujinData.data
+        doujinData = doujinData.data.details
 	
         chapterData = await fetch(`/api/doujin/chaptersList?url=${doujinIdentifier}`)
         chapterData = await chapterData.json()
@@ -44,7 +46,7 @@ window.addEventListener('load', async () => {
 
         const cdnSelectorMenu = document.querySelector('ul.cdn-select-list')
         const cdnChoiceDefault = document.createElement('li')
-        cdnChoiceDefault.innerHTML = '<a class="dropdown-item active" onclick="">Default</a>'
+        cdnChoiceDefault.innerHTML = '<button class="dropdown-item active" onclick="">Default</button>'
         cdnChoiceDefault.onclick = async () => { await configureCDNServer(chapterQuery, 'default', 'Default', cdnChoiceDefault) }
         const cdnChoiceAlt1 = document.createElement('li')
         cdnChoiceAlt1.innerHTML = '<a class="dropdown-item" onclick="">Alternate 1</a>'
@@ -57,7 +59,7 @@ window.addEventListener('load', async () => {
         cdnSelectorMenu.appendChild(cdnChoiceAlt1)
         cdnSelectorMenu.appendChild(cdnChoiceAlt2)
 
-        await configureCDNServer(chapterQuery, 'default', 'Default', null)
+        await configureCDNServer(chapterQuery, 'default', 'Default', Array.from(document.querySelectorAll('ul.cdn-select-list button'))[0])
         pageCount = imagesList.length
         for(let i = 1; i < pageCount + 1; i++) {
             const pageListItem = document.createElement('li')
@@ -100,7 +102,7 @@ async function configureCDNServer(chapterQuery, choice, cdnName, htmlElement) {
     }
     imagesList = data.data[choice]
     document.querySelector('.cdn-server-display').innerHTML = `<i class="fa-solid fa-circle-nodes"></i> Server: ${cdnName}`
-    Array.from(document.querySelectorAll('.cdn-select-list a')).forEach(item => item.classList.remove('active'))
+    Array.from(document.querySelectorAll('.cdn-select-list button')).forEach(item => item.classList.remove('active'))
     if(htmlElement) htmlElement.classList.add('active')
 }
 
@@ -121,6 +123,9 @@ function modifyMetatags(doujinData, doujinIdentifier) {
 async function setPage(pageNumber) {
     currentPage = pageNumber
     percentage = (currentPage / pageCount) * 100
+
+    if(pageLoadingLock) return
+    pageLoadingLock == true
 
     try {
         const response = await fetch('/api/chapter/getImage', {
@@ -156,6 +161,8 @@ async function setPage(pageNumber) {
             document.querySelector('.pageControl .prev').removeAttribute('disabled')
             document.querySelector('.pageControl .next').removeAttribute('disabled')
         }
+
+        pageLoadingLock = false
     }
     catch(e) {
         document.body.classList.add('ps-3')
@@ -207,7 +214,6 @@ function registerPageControlButtons() {
         if(currentPage == pageCount) return
         else return await setPage(currentPage + 1)
     })
-
     document.querySelector('.pageControl .pageSelectInput').addEventListener('click', async () => {
         const pageNum = prompt(`Enter a page number (1-${pageCount})...`)
         if(!pageNum || isNaN(pageNum) || pageNum < 0 || pageNum > pageCount) return alert('Not a valid page number, please try again.')
