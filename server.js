@@ -13,9 +13,7 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
 server.use('/public', express.static(path.join(__dirname, 'assets')))
 
-exec('git log --pretty=tformat:"%h" -n1 .', (e, stdout, stderr) => {
-    fs.writeFileSync('COMMIT_ID.txt', stdout, 'utf-8')
-})
+
 
 if(fs.existsSync(config.backend.cacheFolder) && fs.readdirSync(config.backend.cacheFolder).length > 0) {
     console.log(chalk.bold(chalk.hex('#8caaee')('[Cache] ')) + 'Cleaning up cached doujins...')

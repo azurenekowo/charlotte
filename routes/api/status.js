@@ -7,6 +7,10 @@ const config = require('../../config.json')
 const { exec } = require('child_process')
 
 router.get('/', async (request, response) => {
+    let build_ID = ''
+    exec('git rev-parse --short HEAD', (e, stdout, stderr) => {
+        build_ID = stdout
+    })
     response.setHeader('Content-Type', 'application/json').send({ 
         success: true, 
         data: {
@@ -18,7 +22,7 @@ router.get('/', async (request, response) => {
             },
             instance: {
                 id: null,
-                build: fs.readFileSync('COMMIT_ID.txt').toString()
+                build: build_ID
             }
         }
     })
