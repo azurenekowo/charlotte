@@ -4,28 +4,35 @@ window.addEventListener('load', async () => {
 
     document.querySelector('#progressToggle').addEventListener('click', () => {
         progressbarToggled = !progressbarToggled
-        if(progressbarToggled == false) {
-            document.querySelector('.read-progress').classList.add('d-none')
-            document.querySelector('#progressToggle').innerHTML = '<i class="fa-solid fa-percent"></i> Progress: Hidden'
+        let readProgress = document.querySelector('.read-progress')
+        let progressToggle = document.querySelector('#progressToggle')
+        let boil = '<i class="fa-solid fa-percent"></i> Progress: '
+        if(progressbarToggled) {
+            readProgress.classList.remove('d-none')
+            progressToggle.innerHTML = `${boil}Shown`
         }
         else {
-            document.querySelector('.read-progress').classList.remove('d-none')
-            document.querySelector('#progressToggle').innerHTML = '<i class="fa-solid fa-percent"></i> Progress: Show'
+            readProgress.classList.add('d-none')
+            progressToggle.innerHTML = `${boil}Hidden`
         }
     })
 
     document.querySelector('#pagefitToggle').addEventListener('click', () => {
+        let pageFitToggle = document.querySelector('#pagefitToggle')
+        let displayImage =  document.querySelector('.display-page .image')
+        let boil = '<i class="fa-solid fa-arrows-left-right"></i> Image fit: '
+        
         if(pageFitMode == 'height') {
             pageFitMode = 'none'
-            document.querySelector('#pagefitToggle').innerHTML = `<i class="fa-solid fa-arrows-left-right"></i> Page fit: None`
-            document.querySelector('.display-page .image').classList.remove('h-100')
-            document.querySelector('.display-page .image').classList.add('overflow-y-auto')
+            pageFitToggle.innerHTML = `${boil}None`
+            displayImage.classList.remove('h-100')
+            displayImage.classList.add('overflow-y-auto')
         }
         else {
             pageFitMode = 'height'
-            document.querySelector('#pagefitToggle').innerHTML = `<i class="fa-solid fa-arrows-left-right"></i> Page fit: Height`
-            document.querySelector('.display-page .image').classList.add('h-100')
-            document.querySelector('.display-page .image').classList.remove('overflow-y-auto')
+            pageFitToggle.innerHTML = `${boil}Height`
+            displayImage.classList.add('h-100')
+            displayImage.classList.remove('overflow-y-auto')
         }
     })
 })
