@@ -16,9 +16,8 @@ let pageLoadingLock = false
 window.addEventListener('load', async () => {
     chapterQuery = decodeURIComponent(window.location.pathname.replace('/read/', ''))
     doujinIdentifierPersistent = chapterQuery
-    const doujinIdentifier = new URLSearchParams(window.location.search).get('f')
-    if(!doujinIdentifier) return showMessage('Missing identifier tag (direct linked). Try again from the doujin\'s page.', 'error', null)
-   
+    const doujinIdentifier = `${chapterQuery.split('-')[0]}-doc-truyen-0` 
+
     let doujinData, chapterData
 
     try {    

@@ -9,7 +9,7 @@ const { exec } = require('child_process')
 router.get('/', async (request, response) => {
     let build_ID = ''
     exec('git rev-parse --short HEAD', (e, stdout, stderr) => {
-        build_ID = stdout
+        build_ID = stdout || stderr
     })
     response.setHeader('Content-Type', 'application/json').send({ 
         success: true, 
