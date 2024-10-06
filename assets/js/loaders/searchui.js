@@ -7,7 +7,12 @@ window.addEventListener('load', async () => {
         return showMessage('Empty search query', 'error')
     }
     document.getElementById('searchbox').value = sQuery
-    const res = await fetch(`/api/search?query=${sQuery}&pages=10`, {
+    let requestURL = `/api/search?query=${sQuery}&pages=100`
+    if(sQuery.startsWith('tag:')) {
+        requestURL = `/api/search-tag?query=${sQuery.replace('tag:', '')}`
+    }
+    
+    const res = await fetch(requestURL, {
         headers: {
         },
         method: 'POST'
@@ -16,7 +21,7 @@ window.addEventListener('load', async () => {
     if (!data.success) {
         return showMessage(`Search request failed. The API is currently unreachable.`, 'error', data.data)
     }
-    showMessage(`Search results for "${sQuery}"`, 'info')
+    showMessage(`Search results for ${sQuery.startsWith('tag:') ? `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${window.location.href}">${sQuery.replace('tag:', '')}</a></span>` : '"' + sQuery + '"'}`, 'info')
 
     document.title = `Search: ${sQuery}`
 
@@ -34,6 +39,7 @@ function modifyMetatags(q) {
 
 function loadSearchResults(doujinData) {
     const doujinLS = _.chunk(doujinData, 5)
+    console.log(doujinLS)
     const doujinContainer = document.querySelector('div.doujinListing')
     doujinContainer.innerHTML = ''
     for (let i = 0; i < doujinLS.length; i++) {

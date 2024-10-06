@@ -70,7 +70,7 @@ function setInfoPlaceholders(doujinData) {
         // Characters Tag
         document.querySelector('.characters').innerHTML += `${doujinData.characters ? doujinData.characters.map(tag => `<span class="badge text-bg-secondary fw-normal tag">${tag}</span>`).join('\n') : `<span class="badge text-bg-info fw-normal tag">None (Original Character)</span>`}`
         // Categories Tag
-        document.querySelector('.categories').innerHTML += `${doujinData.tags.map(tag => `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${tag.link.replace('the-loai-', '/category/')}">${tag.name}</a></span>`).join('\n')}`
+        document.querySelector('.categories').innerHTML += `${doujinData.tags.map(tag => `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${tag.link.replace('the-loai-', '/search?q=tag:')}">${tag.name}</a></span>`).join('\n')}`
         if(doujinData.doujinshi) document.querySelector('.categories').innerHTML += `\n<span class="badge text-bg-info fw-normal tag">${doujinData.doujinshi}</span>`
         // Translation Info
         if(doujinData.translators) document.querySelector('#display-transGroup').innerHTML = `Translator: <a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>`
