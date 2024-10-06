@@ -2,7 +2,7 @@ window.addEventListener('load', async () => {
     const res = await fetch('/api/homepage', {
         headers: {
         },
-        method: 'POST'
+        method: 'GET'
     })
     const data = await res.json()
     if (!data.success) {

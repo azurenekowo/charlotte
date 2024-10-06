@@ -14,15 +14,17 @@ let doujinIdentifierPersistent
 let pageLoadingLock = false
 
 window.addEventListener('load', async () => {
-    chapterQuery = decodeURIComponent(window.location.pathname.replace('/read/', ''))
+    chapterQuery = window.location.pathname.replace('/read/', '')
+    console.log(chapterQuery)
     doujinIdentifierPersistent = chapterQuery
-    const doujinIdentifier = `${chapterQuery.split('-')[0]}-doc-truyen-0` 
+    const doujinIdentifier = `${chapterQuery.split('-')[0]}-doc-truyen-a` 
 
     let doujinData, chapterData
 
     try {    
         doujinData = await fetch(`/api/doujin/info?link=${doujinIdentifier}`)
         doujinData = await doujinData.json()
+        
         if(!doujinData.success) {
             return showMessage('Backend API error: Failed to load doujin info.', 'error', doujinData.data)
         }
@@ -41,7 +43,7 @@ window.addEventListener('load', async () => {
 
     try {  
         const doujinName = doujinData.name
-        const currentChapter = chapterData.find(c => c.url == chapterQuery)
+        const currentChapter = chapterData.find(c => c.url.startsWith(chapterQuery.split('-').slice(0, 2).join('-')))
 
         const cdnSelectorMenu = document.querySelector('ul.cdn-select-list')
         const cdnChoiceDefault = document.createElement('li')

@@ -14,6 +14,10 @@ router.post('/', async (request, response) => {
         const data = await res.json()
         const results = Object.values(data)
         const doujinData = _.uniqWith([...new Set(results.flat())], _.isEqual)
+
+        if(!doujinData.at(-1).url) {
+            doujinData.pop()
+        }
         response.setHeader('Content-Type', 'application/json').send({ success: true, data: doujinData })
     }
     catch (e) {

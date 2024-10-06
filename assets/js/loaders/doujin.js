@@ -53,7 +53,7 @@ async function getChapters(doujinURL, id) {
 
 function setReaderURL(url, refurl) {
     document.querySelector('.btn-readnow').addEventListener('click', () => {
-        window.location.href = `/read/${url}?f=${refurl}`
+        window.location.href = `/read/${url}`
     })
 }
 

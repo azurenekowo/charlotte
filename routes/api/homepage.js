@@ -3,9 +3,7 @@ const router = express.Router()
 const fs = require('fs')
 const config = require('../../config.json')
 
-router.post('/', async (request, response) => {
-    if(!request.query) return response.sendStatus(400)
-    const searchQuery = request.query['query']
+router.get('/', async (request, response) => {
     try {
         const res = await fetch(`${config.backend.host}/homepage`)
         // if(!res.ok) return response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
