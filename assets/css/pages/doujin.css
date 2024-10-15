@@ -28,6 +28,10 @@ span.tag {
     white-space: pre-wrap
 }
 
+#title-alt span:hover {
+    cursor: pointer;
+}
+
 .ratings {
     margin: 0 auto;
     width: 80%;

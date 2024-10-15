@@ -64,7 +64,21 @@ function setInfoPlaceholders(doujinData) {
         document.title = doujinTitle
         document.querySelector('#title-main').innerHTML = doujinTitle
         document.querySelector('.bc-mainTitle').innerHTML = doujinTitle
-        doujinData.other_names != null ? document.querySelector('#title-alt').innerHTML = doujinData.other_names.join(', ') : document.querySelector('#title-alt').classList.add('charlotte-hidden')
+        if(doujinData.other_names != null) {
+            document.querySelector('#title-alt').innerHTML = ''
+            doujinData.other_names.forEach(name => {
+                const sp_dj_name = document.createElement('span')
+                sp_dj_name.innerHTML = name
+                sp_dj_name.onclick = () => {
+                    navigator.clipboard.writeText(name)
+                }
+                document.querySelector('#title-alt').appendChild(sp_dj_name)
+                document.querySelector('#title-alt').appendChild(document.createElement('br'))
+            })
+        }
+        else {
+            document.querySelector('#title-alt').classList.add('charlotte-hidden')
+        }
         // Cover art
         document.querySelector('img.display-coverart').src = doujinData.cover
         // Characters Tag

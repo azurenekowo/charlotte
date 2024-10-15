@@ -13,8 +13,6 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: false }))
 server.use('/public', express.static(path.join(__dirname, 'assets')))
 
-
-
 if(fs.existsSync(config.backend.cacheFolder) && fs.readdirSync(config.backend.cacheFolder).length > 0) {
     console.log(chalk.bold(chalk.hex('#8caaee')('[Cache] ')) + 'Cleaning up cached doujins...')
     fs.readdirSync(config.backend.cacheFolder).filter(f => f != '.gitkeep').forEach(f => {
