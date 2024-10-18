@@ -13,6 +13,8 @@ let doujinIdentifierPersistent
 
 let pageLoadingLock = false
 
+let imageCaches = {}
+
 window.addEventListener('load', async () => {
     chapterQuery = window.location.pathname.replace('/read/', '')
     console.log(chapterQuery)
@@ -70,7 +72,7 @@ window.addEventListener('load', async () => {
         }
         document.querySelector('.title-display a').href = `/doujin/${doujinIdentifier}`
         document.querySelector('.title-display a').innerHTML = `${doujinName}`
-        document.querySelector('.chapter-display').innerHTML = `Chapter ${chapterData.indexOf(currentChapter) + 1}: ${currentChapter.title}`
+        document.querySelector('.chapter-display').innerHTML = `${currentChapter.title}`
         
         document.querySelector('.navbar').classList.add('charlotte-hidden')
         document.querySelector('#messageDialog').classList.add('charlotte-hidden')
@@ -129,23 +131,22 @@ async function setPage(pageNumber) {
     pageLoadingLock == true
 
     try {
-        const response = await fetch('/api/chapter/getImage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url: imagesList[pageNumber - 1], identifier: doujinIdentifierPersistent })
-        })
-        const data = await response.blob()
-        if(!response.ok) {
-            document.body.classList.add('ps-3')
-            document.body.classList.add('pe-3')
-            document.querySelector('.navbar').classList.remove('charlotte-hidden')
-            document.querySelector('.doujin-reader').classList.add('d-none')
-            return showMessage('Backend API error: Failed to fetch image.', 'error', e)
+        let imageURL = imagesList[pageNumber - 1]
+        if (!imageCaches[imageURL]) {
+            const response = await fetch('/api/chapter/getImage?' + new URLSearchParams({ url: imagesList[pageNumber - 1]}))
+
+            if(!response.ok) {
+                document.body.classList.add('ps-3')
+                document.body.classList.add('pe-3')
+                document.querySelector('.navbar').classList.remove('charlotte-hidden')
+                document.querySelector('.doujin-reader').classList.add('d-none')
+                return showMessage('Backend API error: Failed to fetch image.', 'error', response.statusMessage)
+            }
+
+            imageCaches[imageURL] = await response.blob()
         }
 
-        document.querySelector('.display-page img').src = urlCreator.createObjectURL(data)
+        document.querySelector('.display-page img').src = urlCreator.createObjectURL(imageCaches[imageURL])
         
         document.querySelector('.pageSelect').innerHTML = `<i class="fa-regular fa-file"></i> Page: ${currentPage}/${pageCount}`
         document.querySelector('.pageSelectInput').innerHTML = `${currentPage}/${pageCount}`
@@ -194,6 +195,7 @@ function registerTouchEvt() {
     const touchHandler = new Hammer(displayImagePage)
     touchHandler.on('tap', async (e) => {
         const deltaX = e.center.x
+        console.log(`${e}`)
         const deltaPerc = Math.round((deltaX / displayImagePage.width) * 100)
         if(deltaPerc > 50) {            
             if(currentPage == pageCount) return
