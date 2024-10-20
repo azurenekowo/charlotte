@@ -1,15 +1,29 @@
+// https://stackoverflow.com/a/175787
+function isNumeric(str) {
+    if (typeof str != "string") return false
+    return !isNaN(str) && !isNaN(parseFloat(str))
+}
+
 window.addEventListener('load', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const sQuery = urlParams.get('q')
+    let sPage = urlParams.get('page')
     modifyMetatags(sQuery)
     
     if (!sQuery) {
         return showMessage('Empty search query', 'error')
     }
+
+    if (sPage && isNumeric(sPage)) {
+        sPage = parseInt(sPage)
+    } else {
+        sPage = 1
+    }
+
     document.getElementById('searchbox').value = sQuery
-    let requestURL = `/api/search?query=${sQuery}&pages=100`
+    let requestURL = `/api/search?query=${sQuery}&page=${sPage}`
     if(sQuery.startsWith('tag:')) {
-        requestURL = `/api/search-tag?query=${sQuery.replace('tag:', '')}`
+        requestURL = `/api/search-tag?query=${sQuery.replace('tag:', '')}&page=${sPage}`
     }
     
     const res = await fetch(requestURL, {
@@ -21,7 +35,7 @@ window.addEventListener('load', async () => {
     if (!data.success) {
         return showMessage(`Search request failed. The API is currently unreachable.`, 'error', data.data)
     }
-    showMessage(`Search results for ${sQuery.startsWith('tag:') ? `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${window.location.href}">${sQuery.replace('tag:', '')}</a></span>` : '"' + sQuery + '"'}`, 'info')
+    showMessage(`Search results for ${sQuery.startsWith('tag:') ? `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${window.location.href}">${sQuery.replace('tag:', '')}</a></span>` : '"' + sQuery + '"'}, page ${sPage}/${data.maxpage}`, 'info')
 
     document.title = `Search: ${sQuery}`
 
