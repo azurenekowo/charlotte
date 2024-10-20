@@ -22,6 +22,7 @@
 
 span.tag {
     font-size: small;
+    margin-top: 5px;
 }
 
 #display-desc {
@@ -32,9 +33,39 @@ span.tag {
     cursor: pointer;
 }
 
+.thumbnail {
+    flex-direction: column;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.buttons button {
+    margin: 5px;
+}
+
+.infobox {
+    display: flex;
+    flex-direction: column;
+}
+
+.chapter-display {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-body button {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
 .ratings {
-    margin: 0 auto;
-    width: 80%;
+    width: 100%;
+    margin-top: 20px;
 }
 
 @media only screen and (max-width: 900px) {

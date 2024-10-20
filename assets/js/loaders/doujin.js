@@ -1,12 +1,11 @@
 window.addEventListener('load', async () => {
     const doujinIdentifier = window.location.pathname.replace('/doujin/', '')
     const res = await fetch(`/api/doujin/info?link=${doujinIdentifier}`, {
-        headers: {
-        },
+        headers: {},
         method: 'GET'
     })
     const data = await res.json()
-    if(!data.success) {
+    if (!data.success) {
         return showMessage('Backend API error: Loading doujin information failed.', 'error', data.data)
     }
     dialogVisibility(false)
@@ -31,12 +30,12 @@ async function getChapters(doujinURL, id) {
         chapterData.reverse()
 
         const chapterSelector = document.querySelector('.chaptersList')
-        
-        for(let i = 1; i < chapterData.length + 1; i++) {
+
+        for (let i = 1; i < chapterData.length + 1; i++) {
             const chapterListItem = document.createElement('li')
-            const chapterName = `${chapterData[i -1].title}`
+            const chapterName = `${chapterData[i - 1].title}`
             chapterListItem.innerHTML = `<button class="btn btn-sm dropdown-item chapterItem">${chapterName}</button>`
-            chapterListItem.addEventListener('click', async () => { 
+            chapterListItem.addEventListener('click', async () => {
                 setReaderURL(chapterData[i - 1].url, id)
                 Array.from(document.querySelectorAll('button.chapterItem')).forEach(item => item.classList.remove('active'))
                 chapterListItem.classList.add('active')
@@ -45,8 +44,7 @@ async function getChapters(doujinURL, id) {
             chapterSelector.appendChild(chapterListItem)
         }
         Array.from(document.querySelectorAll('button.chapterItem'))[0].click()
-    }
-    catch(e) {
+    } catch (e) {
         return showMessage('Backend API error: Loading doujin chapters failed.', 'error', e)
     }
 }
@@ -64,47 +62,57 @@ function setInfoPlaceholders(doujinData) {
         document.title = doujinTitle
         document.querySelector('#title-main').innerHTML = doujinTitle
         document.querySelector('.bc-mainTitle').innerHTML = doujinTitle
-        if(doujinData.other_names != null) {
-            document.querySelector('#title-alt').innerHTML = ''
+        if (doujinData.other_names != null) {
+            document.querySelector('#title-alt').innerHTML = 'Other names: '
             doujinData.other_names.forEach(name => {
-                const sp_dj_name = document.createElement('span')
-                sp_dj_name.innerHTML = name
-                sp_dj_name.onclick = () => {
-                    navigator.clipboard.writeText(name)
-                }
+                const sp_dj_name = document.createElement('a')
+                sp_dj_name.innerHTML = name.trim()
+                sp_dj_name.href = `https://nhentai.net/search/?q=${name}`
                 document.querySelector('#title-alt').appendChild(sp_dj_name)
-                document.querySelector('#title-alt').appendChild(document.createElement('br'))
+                if (name !== doujinData.other_names[doujinData.other_names.length - 1])
+                    document.querySelector('#title-alt').innerHTML += ', '
             })
-        }
-        else {
+        } else {
             document.querySelector('#title-alt').classList.add('charlotte-hidden')
         }
         // Cover art
         document.querySelector('img.display-coverart').src = doujinData.cover
         // Characters Tag
-        document.querySelector('.characters').innerHTML += `${doujinData.characters ? doujinData.characters.map(tag => `<span class="badge text-bg-secondary fw-normal tag">${tag}</span>`).join('\n') : `<span class="badge text-bg-info fw-normal tag">None (Original Character)</span>`}`
+        document.querySelector('.characters').innerHTML += `${doujinData.characters ? doujinData.characters.map(tag => `<span class="badge text-bg-secondary fw-normal tag">${tag}</span>`).join('\n') : `<span class="badge text-bg-info fw-normal tag">Original</span>`}`
         // Categories Tag
         document.querySelector('.categories').innerHTML += `${doujinData.tags.map(tag => `<span class="badge text-bg-secondary fw-normal tag"><a class="noformat" href="${tag.link.replace('the-loai-', '/search?q=tag:')}">${tag.name}</a></span>`).join('\n')}`
-        if(doujinData.doujinshi) document.querySelector('.categories').innerHTML += `\n<span class="badge text-bg-info fw-normal tag">${doujinData.doujinshi}</span>`
-        // Translation Info
-        if(doujinData.translators) document.querySelector('#display-transGroup').innerHTML = `Translator: <a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>`
-        else {
+        if (doujinData.doujinshi) document.querySelector('.categories').innerHTML += `\n<span class="badge text-bg-info fw-normal tag">${doujinData.doujinshi}</span>`
+
+        let count = 0;
+        if (doujinData.translators) {
+            document.querySelector('#display-transGroup').innerHTML = `Translator: <a class="noformat" href="${doujinData.translators[0].url.replace('g/', '/translators-group/')}">${doujinData.translators[0].text}</a>`
+            count++
+        } else {
             document.querySelector('#display-transGroup').classList.add('d-none')
             document.querySelector('#seperatorTranslatorInf').classList.add('d-none')
-        } 
-        document.querySelector('#display-uploader').innerHTML = `Uploader: ${doujinData.uploader}`
+        }
+
+        if (doujinData.uploader) {
+            document.querySelector('#display-uploader').innerHTML = `Uploader: ${doujinData.uploader}`
+            count++
+        } else {
+            document.querySelector('#display-uploader').classList.add('d-none')
+        }
+
+        if (count === 0)
+            document.querySelector('.trans').classList.add('d-none')
+
         // Author
         document.querySelector('#display-author').innerHTML = `${doujinData.authors.join(', ')}`
         // Status + LU
-        document.querySelector('#display-status').innerHTML = `${doujinData.status == 'Đã hoàn thành' ? '<i class="fa-solid fa-check" style="color: #198754;"></i>&nbsp;Completed' : '<i class="fa-solid fa-spinner"></i></i>&nbsp;Work In Progress'}`
+        document.querySelector('#display-status').innerHTML = `${doujinData.status == 'Đã hoàn thành' ? 'Completed&nbsp;<i class="fa-solid fa-check" style="color: #198754;"></i>' : 'Work In Progress&nbsp;<i class="fa-solid fa-spinner"></i>'}`
         document.querySelector('#display-LUStatus').innerHTML = `${dateString(doujinData.last_updated)}`
         // Description
         document.querySelector('#display-desc').innerHTML = `${doujinData.desc ? doujinData.desc : '<i>None provided.</i>'}`
         // Likes / Dislikes
         document.querySelector('#display-likes').innerHTML = `${doujinData.likes}`
         document.querySelector('#display-dislikes').innerHTML = `${doujinData.dislikes}`
-    }
-    catch(e) {
+    } catch (e) {
         return showMessage('Parsing error: Failed to load this page due to unexpected value.', 'error', e)
     }
 }
@@ -125,11 +133,11 @@ function modifyMetatags(doujinData) {
 
 function mainTitleHandler(string) {
     const index = string.lastIndexOf(' - ')
-    if(index != -1) return string.substring(0, index)
+    if (index != -1) return string.substring(0, index)
     else return string
 }
 
-function dateString(unixTS){
+function dateString(unixTS) {
     const a = new Date(unixTS * 1000)
     const year = a.getFullYear()
     const month = ('0' + (a.getMonth() + 1)).slice(-2)

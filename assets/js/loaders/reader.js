@@ -194,9 +194,9 @@ function registerTouchEvt() {
     // console.log(displayImagePage)
     const touchHandler = new Hammer(displayImagePage)
     touchHandler.on('tap', async (e) => {
-        const deltaX = e.center.x
-        console.log(`${e}`)
+        const deltaX = e.center.x - displayImagePage.x
         const deltaPerc = Math.round((deltaX / displayImagePage.width) * 100)
+        console.log(`${e.center.x} ${deltaPerc}`)
         if(deltaPerc > 50) {            
             if(currentPage == pageCount) return
             await setPage(currentPage + 1)

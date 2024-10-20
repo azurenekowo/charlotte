@@ -82,60 +82,58 @@
     </div>
     <div class="card mb-3 doujin-info charlotte-hidden p-1">
         <div class="row g-0">
-            <div class="col-md-4 thumbnail d-flex justify-content-center p-3">
+            <div class="col-md-4 thumbnail d-flex justify-content-between p-3">
                 <img src="/public/img/cover-example.png" class="img-fluid rounded display-coverart" alt="...">
+                <div class="inf-group ratings d-flex align-self-center justify-content-evenly">
+                    <span><i class="fa-solid fa-heart fa-xl" style="color: #dc3545"></i>&nbsp;<number id="display-likes">{{likes}}</number></span>
+                    <span><i class="fa-solid fa-thumbs-down fa-xl" style="color: #0d6efd"></i>&nbsp;<number id="display-dislikes">{{dislikes}}</number></span>
+                </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 infobox">
                 <div class="card-body metainf">
                     <h3 class="card-title" id="title-main">{{mainTitle}}</h3>
                     <p class="card-title text-muted" id="title-alt">{{altTitles}}</p>
-                    <hr class="hr hr-blurry">
+<!--                    <hr class="hr hr-blurry">-->
+                    <br>
                     <div class="inf-group characters">
-                        <span class="name text-muted">Characters</span><br>
+                        <span class="name text-muted">Characters: </span>
                     </div>
                     <div class="inf-group categories">
-                        <span class="name text-muted">Categories</span><br>
+                        <span class="name text-muted">Categories: </span>
                     </div>
                     <div class="inf-group trans">
-                        <span class="name text-muted">Translation</span><br>
+                        <span class="name text-muted">Translation:</span><br>
                         <span id="display-transGroup">{{transGroup}}</span><br id="seperatorTranslatorInf">
                         <span id="display-uploader">{{uploader}}</span>
                     </div>
                     <div class="inf-group author">
-                        <span class="name text-muted">Author</span><br>
+                        <span class="name text-muted">Author: </span>
                         <span id="display-author">{{author}}</span>
                     </div>
                     <div class="inf-group status">
-                        <span class="name text-muted">Status</span><br>
+                        <span class="name text-muted">Status: </span>
                         <span id="display-status">{{status}}</span>
                     </div>
                     <div class="inf-group last-updated">
-                        <span class="name text-muted">Last Updated</span><br>
-                        <span id="display-LUStatus"><code>{{timestamp:LUTimestamp}}</code></span>
+                        <span class="name text-muted">Last updated:</span>
+                        <span id="display-LUStatus">{{timestamp:LUTimestamp}}</span>
                     </div>
                     <div class="inf-group desc">
-                        <span class="name text-muted">Description</span><br>
+                        <span class="name text-muted">Description:</span><br>
                         <p id="display-desc">{{desc}}
                         </p>
                     </div>
-                    <div class="inf-group readnow">
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-secondary dropdown-toggle chapter-display" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Chapter: Loading...
-                            </button>
-                            <ul class="dropdown-menu chaptersList">
-                                
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-primary w-auto btn-readnow mt-1"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;Read</button>
-                        <button type="button" class="btn btn-sm btn-primary w-auto btn-savedoujin mt-1"><i class="fa-solid fa-bookmark"></i></i>&nbsp;Save</button>
-                        <button type="button" class="btn btn-sm btn-secondary w-auto btn-extlink mt-1">Canonical Page ↗</button>
-                    </div>
-                    <hr class="hr hr-blurry">
-                    <div class="inf-group ratings d-flex align-self-center justify-content-evenly">
-                        <span><i class="fa-solid fa-heart fa-xl" style="color: #dc3545"></i>&nbsp;<number id="display-likes">{{likes}}</number></span>
-                        <span><i class="fa-solid fa-thumbs-down fa-xl" style="color: #0d6efd"></i>&nbsp;<number id="display-dislikes">{{dislikes}}</number></span>
-                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle chapter-display" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Chapter: Loading...
+                    </button>
+                    <ul class="dropdown-menu chaptersList">
+
+                    </ul>
+                    <button type="button" class="btn btn-sm btn-primary w-auto btn-readnow mt-1"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;Read</button>
+                    <button type="button" class="btn btn-sm btn-primary w-auto btn-savedoujin mt-1"><i class="fa-solid fa-bookmark"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-sm btn-secondary w-auto btn-extlink mt-1">Canonical Page ↗</button>
                 </div>
             </div>
         </div>
