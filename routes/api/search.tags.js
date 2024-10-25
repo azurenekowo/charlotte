@@ -21,7 +21,7 @@ router.post('/', async (request, response) => {
         } else {
             sPage = 1
         }
-        const res = await fetch(`${config.backend.host}/tag/the-loai-${searchQuery}.html/?page=${sPage}`) // a quirk of the tag endpoint
+        const res = await fetch(`${config.backend.host}/tag/the-loai-${searchQuery}.html?page=${sPage}`) // a quirk of the tag endpoint
         // if(!res.ok) return response.status(503).setHeader('Content-Type', 'application/json').send({ success: false, data: e })
 
         const responseJson = await res.json()
